@@ -16,7 +16,13 @@ setup(
     long_description=LONG_DESCRIPTION,
     # packages=find_packages(),
     packages=["gargaml"],
-    install_requires=["pandas"],  # add any additional packages that
+    install_requires=[
+        "pandas",
+        "numpy",
+        "scikit-learn",
+        "matplotlib",
+        "seaborn",
+    ],  # add any additional packages that
     # needs to be installed along with your package. Eg: 'caer'
     keywords=["python", "machine learning"],
     classifiers=[

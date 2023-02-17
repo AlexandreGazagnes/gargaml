@@ -1,9 +1,37 @@
-pandas
+# basics
+pandas 
+numpy 
+scipy
+statsmodels
 
+
+# sk
+scikit-learn
+imbalanced-learn
+category_encoders
+lightgbm
+xgboost
+shap
+
+
+# viz
+matplotlib
+seaborn
+plotly
+missingno
+
+
+# web
+requests
+flask
+
+
+# quality
 flake8
 pytest
 pylint
 black
+
 
 # tools
 Ipython
@@ -12,6 +40,23 @@ ipykernel
 ipywidgets
 session-info
 
+
 # build
 wheel
 setuptools
+
+
+# # nlp
+# spacy
+# nltk
+# wordcloud
+# transformers
+
+
+# # dl
+# tensorflow
+# tensorboard
+# torch 
+# torchvision 
+# torchaudio 
+# # --extra-index-url https://download.pytorch.org/whl/cpu
