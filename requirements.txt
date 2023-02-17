@@ -1,0 +1,17 @@
+pandas
+
+flake8
+pytest
+pylint
+black
+
+# tools
+Ipython
+# voila
+ipykernel
+ipywidgets
+session-info
+
+# build
+wheel
+setuptools
