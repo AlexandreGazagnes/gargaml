@@ -1,8 +1,15 @@
 from sklearn.pipeline import Pipeline
 
-from sklearn.dummy import *
+from sklearn.dummy import DummyClassifier, DummyRegressor
 from sklearn.impute import *
 from sklearn.preprocessing import *
+from sklearn.compose import (
+    ColumnTransformer,
+    make_column_selector,
+    make_column_transformer,
+)
+from sklearn.decomposition import PCA
+import numpy as np
 
 
 class Pipe:
@@ -15,28 +22,39 @@ class Pipe:
         cls,
         is_regression: bool,
         txt_pipe: str = "ise",
-        default_est=None,
+        default_estimator=None,
     ):
         """ """
 
         pst = "passthrough"
 
-        if default_est:
+        default_preprocessor = ColumnTransformer(
+            transformers=[
+                (
+                    "num",
+                    "passthrough",
+                    make_column_selector(dtype_include=np.number),
+                )
+            ],
+            remainder="drop",
+        )
+
+        if default_estimator:
             try:
-                default_est = default_est()
+                default_estimator = default_estimator()
             except Exception as e:
                 pass
 
-        if not default_est:
-            default_est = DummyRegressor() if is_regression else DummyClassifier()
+        if not default_estimator:
+            default_estimator = DummyRegressor() if is_regression else DummyClassifier()
 
         p_dict = {
             "b": ("balancer", pst),
-            "p": ("preprocessor", pst),
-            "i": ("imputer", pst),
-            "s": ("scaler", pst),
-            "r": ("reductor", pst),
-            "e": ("estimator", default_est),
+            "p": ("preprocessor", default_preprocessor),
+            "i": ("imputer", SimpleImputer(strategy="median")),
+            "s": ("scaler", StandardScaler()),
+            "r": ("reductor", PCA()),
+            "e": ("estimator", default_estimator),
         }
 
         pipe = [p_dict[t] for t in txt_pipe]

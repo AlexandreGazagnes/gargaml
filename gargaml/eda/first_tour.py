@@ -74,4 +74,6 @@ class FirstTour:
             tmp = data.select_dtypes(t).copy()
             tmp.columns.name = f"---- {t[:3].upper()} ----"
             if tmp.shape[1]:
-                display(tmp.describe(include=t))
+                descr = tmp.describe(include=t)
+                descr = descr.round(2) if t != "datetime" else descr
+                display(descr)

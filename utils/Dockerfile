@@ -23,7 +23,6 @@ RUN cat pip.freeze | grep gargaml
 
 # RUN pip install skres
 
-# RUN /root/env/bin/python3 -c "import pandas; "
-# RUN /root/env/bin/python3 -c "import gargaml;"
+# 
 
 

@@ -67,12 +67,20 @@ def _seattle(year="2016", *args, **kwargs):
     return None
 
 
-def _titanic(*args, **kwargs):
+def _titanic(
+    X_y: bool,
+    nan_rate: float = 0.1,
+):
     """ """
 
     url = "https://gist.githubusercontent.com/AlexandreGazagnes/9018022652ba0933dd39c9df8a600292/raw/0845ef4c2df4806bb05c8c7423dc75d93e37400f/titanic_train_raw_csv"
 
-    return pd.read_csv(url)
+    df = pd.read_csv(url)
+
+    if not X_y:
+        return df
+
+    return df.drop(columns="Survived"), df.Survived
 
 
 def _hr(*args, **kwargs):

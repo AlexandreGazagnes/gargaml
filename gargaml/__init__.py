@@ -52,5 +52,5 @@ class SkRes(pd.DataFrame):
 
 class Gargaml:
     loads = Loads
-    eda = EDA
-    ml = ML
+    eda = Geda
+    ml = Gml
