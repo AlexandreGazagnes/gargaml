@@ -1,5 +1,7 @@
-from .resultize import resultize
+from gargaml.ml.resultize import Results
+from gargaml.ml.pipe import Pipe
 
 
-class ML:
-    resultize = resultize
+class Gml:
+    results = Results
+    pipeline = Pipe

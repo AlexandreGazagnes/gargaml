@@ -5,7 +5,7 @@ from sklearn.datasets import *
 import pandas as pd
 
 # # import numpy as np
-# # import random
+import random
 
 
 def _load(data: str, X_y: bool, nan_rate: float):

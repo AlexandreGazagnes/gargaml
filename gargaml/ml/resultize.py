@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+from sklearn.model_selection import GridSearchCV
+
 # Nfrom agaml import pd
 
 
@@ -34,70 +36,79 @@ import numpy as np
 #     return good_res.sort_values("rank_val_score")
 
 
-def resultize(grid, **kwargs):
-    """ """
+class Results:
+    """class Results
+    resultize : return an pd.DataFrame of fancy results"""
 
-    # grid res
-    res = pd.DataFrame(grid.cv_results_)
+    @classmethod
+    def grid(
+        cls,
+        grid: GridSearchCV,
+        **kwargs,
+    ):
+        """ """
 
-    # round
-    res = res.round(2)
+        # grid res
+        res = pd.DataFrame(grid.cv_results_)
 
-    # default structure :
-    for k in [
-        "param_estimator",
-        "param_preprocessor",
-        "param_reductor",
-        "param_scaler",
-        "param_imputer",
-    ]:
-        if k not in res.columns:
-            res.loc[:, k] = np.NaN
+        # round
+        res = res.round(2)
 
-    # kwargs
-    for k, v in kwargs.items():
-        res.loc[:, k] = v
+        # default structure :
+        for k in [
+            "param_estimator",
+            "param_preprocessor",
+            "param_reductor",
+            "param_scaler",
+            "param_imputer",
+        ]:
+            if k not in res.columns:
+                res.loc[:, k] = np.NaN
 
-    # add grid
-    res["grid"] = grid
+        # kwargs
+        for k, v in kwargs.items():
+            res.loc[:, k] = v
 
-    # list train and test socres
-    for k in ["test", "train"]:
-        cols = [i for i in res.columns if ("split" in i) and (k in i)]
-        res.loc[:, f"{k}_scores"] = res.loc[:, cols].apply(
-            lambda i: list(i.values), axis=1
-        )
+        # add grid
+        res["grid"] = grid
 
-    # drop split
-    cols = [i for i in res if "split" not in i]
-    res = res.loc[:, cols]
+        # list train and test socres
+        for k in ["test", "train"]:
+            cols = [i for i in res.columns if ("split" in i) and (k in i)]
+            res.loc[:, f"{k}_scores"] = res.loc[:, cols].apply(
+                lambda i: list(i.values), axis=1
+            )
 
-    # drop fit std
-    cols = [i for i in res if ("std" in i) and ("time" in i)]
-    res.drop(columns=cols, inplace=True)
+        # drop split
+        cols = [i for i in res if "split" not in i]
+        res = res.loc[:, cols]
 
-    # str params
-    cols = [i for i in res.columns if "param_" in i]
-    for col in cols:
-        res.loc[:, col] = res.loc[:, col].astype(str)
-    # params str
-    if "params" in res.columns:
-        res.loc[:, "params"] = res.loc[:, "params"].apply(lambda i: str(i))
-        # res.loc[:, "params"] = res.loc[:, "params"].apply(lambda i : dict(i) if i else {})
-        # res.loc[:, "params"] = res.loc[:, "params"].apply(lambda i : {k:str(v)} for k, v in i.items())
+        # drop fit std
+        cols = [i for i in res if ("std" in i) and ("time" in i)]
+        res.drop(columns=cols, inplace=True)
 
-    # replace val by test
-    test_cols = {i: i.replace("test", "val") for i in res.columns}
-    res.rename(columns=test_cols, inplace=True)
+        # str params
+        cols = [i for i in res.columns if "param_" in i]
+        for col in cols:
+            res.loc[:, col] = res.loc[:, col].astype(str)
+        # params str
+        if "params" in res.columns:
+            res.loc[:, "params"] = res.loc[:, "params"].apply(lambda i: str(i))
+            # res.loc[:, "params"] = res.loc[:, "params"].apply(lambda i : dict(i) if i else {})
+            # res.loc[:, "params"] = res.loc[:, "params"].apply(lambda i : {k:str(v)} for k, v in i.items())
 
-    # cols at the end
-    # scores = ["rank_val_score", "mean_val_score", "std_val_score", "mean_train_score", "std_train_score"]
-    cols = [i for i in res.columns if "score" not in i] + [
-        i for i in res.columns if "score" in i
-    ]
-    res = res.loc[:, cols]
+        # replace val by test
+        test_cols = {i: i.replace("test", "val") for i in res.columns}
+        res.rename(columns=test_cols, inplace=True)
 
-    # sort and round
-    res = res.sort_values("mean_val_score", ascending=False).round(2)
+        # cols at the end
+        # scores = ["rank_val_score", "mean_val_score", "std_val_score", "mean_train_score", "std_train_score"]
+        cols = [i for i in res.columns if "score" not in i] + [
+            i for i in res.columns if "score" in i
+        ]
+        res = res.loc[:, cols]
 
-    return res
+        # sort and round
+        res = res.sort_values("mean_val_score", ascending=False).round(2)
+
+        return res

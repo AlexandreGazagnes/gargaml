@@ -11,7 +11,7 @@ imbalanced-learn
 category_encoders
 lightgbm
 xgboost
-shap
+# shap
 
 
 # viz

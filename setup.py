@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = "0.0.0"
+VERSION = "0.0.10"
 DESCRIPTION = "A personal ML lib"
 LONG_DESCRIPTION = "A personal ML lib"
 
@@ -15,13 +15,38 @@ setup(
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     # packages=find_packages(),
-    packages=["gargaml"],
+    packages=find_packages(),
     install_requires=[
+        #
         "pandas",
         "numpy",
-        "scikit-learn",
+        #
+        "Ipython",
+        #
         "matplotlib",
         "seaborn",
+        "plotly",
+        "missingno",
+        #
+        "scikit-learn",
+        "imbalanced-learn",
+        "category_encoders",
+        #
+        "requests",
+        "flask",
+        #
+        "flake8",
+        "pytest",
+        "pylint",
+        "black",
+        #
+        "scipy",
+        "statsmodels",
+        #
+        "lightgbm",
+        "xgboost",
+        #
+        # "shap",
     ],  # add any additional packages that
     # needs to be installed along with your package. Eg: 'caer'
     keywords=["python", "machine learning"],

@@ -1,9 +1,9 @@
-from .first_tour import FirstTour
-from .nan import Nan
-from .corr import Corr
+from gargaml.eda.first_tour import FirstTour
+from gargaml.eda.nan import Nan
+from gargaml.eda.corr import Corr
 
 
-class EDA:
+class Geda:
     """ """
 
     first_tour = FirstTour

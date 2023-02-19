@@ -1,1 +1,1 @@
-from .loads import Loads
+from gargaml.loads.loads import Loads
