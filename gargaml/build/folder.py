@@ -10,23 +10,24 @@ def create_folders() :
     path = os.getcwd()
     # logging.warning(f"path is {path}")
 
+    fd_list = []
+
     # all folders
-    for dir in README_list + INIT_list:
-        try :   
-            os.mkdir(f"{path}/{dir}/")
-        except Exception as e : 
-            logging.error(e)
+    for dir in README_list + INIT_list:           
+        fd_list.append(f"{path}/{dir}/")
+
     # data/
     for dir in data_list : 
-        try :   
-            os.mkdir(f"{path}/data/{dir}/")
-        except Exception as e : 
-            logging.error(e)
-    
-    # github
-    try : 
-        os.mkdir(f"{path}/.github/")
-        os.mkdir(f"{path}/.github/workflows/")
-    except Exception as e : 
-            logging.error(e)
+        fd_list.append(f"{path}/data/{dir}/")
 
+    # github
+    fd_list.append(f"{path}/.github/")
+    fd_list.append(f"{path}/.github/workflows/")
+
+
+    # do mkdir 
+    for fd in fd_list : 
+        try : 
+            os.mkdir(fd)
+        except Exception as e : 
+            logging.error(f"{fd} => {e}")

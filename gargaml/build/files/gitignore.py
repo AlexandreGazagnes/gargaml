@@ -1,3 +1,9 @@
+
+gitignore = {
+    "name" : ".gitignore", 
+    "source" : "", 
+    "mode" : "w", 
+    "txt" : """
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -146,3 +152,7 @@ dmypy.json
 *.jpeg
 
 *.log
+
+"""
+
+}

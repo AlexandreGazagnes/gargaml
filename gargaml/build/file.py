@@ -8,37 +8,31 @@ def create_files() :
     path = os.getcwd()
     # logging.warning(f"path is {path}")
 
+    fn_list = []
+
     # readme files
     for dir in README_list : 
-        try : 
-            Path(f"{path}/{dir}/README.md").touch()
-        except Exception as e : 
-            logging.error(e)
-
-    # data/
-    for dir in data_list : 
-        try :
-            Path(f"{path}/data/{dir}/README.md").touch()
-        except Exception as e : 
-            logging.error(e)
-
-    # assets/
-    for dir in data_list : 
-        try : 
-            Path(f"{path}/assets/README.md").touch()
-        except Exception as e : 
-            logging.error(e)
+        fn_list.append(f"{path}/{dir}/README.md")
 
     # __init__.py
-    for dir in INIT_list : 
-        try : 
-            Path(f"{path}/{dir}/__init__.py").touch()
-        except Exception as e : 
-            logging.error(e)
+    for dir in INIT_list :  
+        fn_list.append(f"{path}/{dir}/__init__.py")
+  
+    # data/
+    for dir in data_list : 
+        fn_list.append(f"{path}/data/{dir}/README.md")
+
+    # assets/
+    for dir in assets_list :  
+        fn_list.append(f"{path}/assets/{dir}README.md")
 
     # notebooks
-    for f in notebooks_list : 
+    for f in notebooks_list :  
+        fn_list.append(f"{path}/notebooks/{f}.ipynb")
+
+    # do touch my tralala
+    for fn in fn_list : 
         try : 
-            Path(f"{path}/notebooks/{f}.ipynb").touch()
+            Path(fn).touch()
         except Exception as e : 
-            logging.error(e)
+            logging.error(f"{fn} => {e}")
