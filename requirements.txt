@@ -1,6 +1,7 @@
 # basics
 pandas 
 numpy 
+# dataprep
 
 scipy
 statsmodels
@@ -25,6 +26,8 @@ missingno
 # web
 requests
 flask
+bs4
+kaggle
 
 
 # quality
@@ -32,16 +35,25 @@ flake8
 pytest
 pylint
 black
+black[jupyter]
+mypy
+coverage
+
 
 
 # tools
 Ipython
 # voila
 jupyter
-notebooks
+notebook
+
+jupyterlab
 ipykernel
+jupyter_contrib_nbextensions
+jupytext
 ipywidgets
 session-info
+pandarallel
 
 
 # build
