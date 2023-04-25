@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import *
 
 # Nfrom agaml import pd
 
@@ -112,3 +112,32 @@ class Results:
         res = res.sort_values("mean_val_score", ascending=False).round(2)
 
         return res
+
+    @classmethod
+    def cv(cls, grid, X, y, **kwargs):
+        """ """
+
+        _res = pd.DataFrame({"_index": [], "y_test": [], "y_pred": [], "y_prob": []})
+        model = grid.best_estimator_
+
+        for i, (train_index, test_index) in enumerate(
+            StratifiedShuffleSplit(n_splits=20, test_size=0.3).split(X, y)
+        ):
+            print(f"Fold {i}:")
+
+            X_train, X_test = X.loc[train_index], X.loc[test_index]
+            y_train, y_test = y.loc[train_index], y.loc[test_index]
+
+            model.fit(X_train, y_train)
+
+            __res = pd.DataFrame(
+                {
+                    "_index": X_test.index.values,
+                    "y_test": y_test.values,
+                    "y_pred": model.predict(X_test),
+                    "y_prob": np.NaN,
+                }
+            )  # model.predict_proba(X_test)
+            _res = pd.concat([_res, __res], ignore_index=True)
+
+        return _res
