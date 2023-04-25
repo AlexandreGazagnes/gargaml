@@ -14,7 +14,7 @@ setup(
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     # packages=find_packages(),
-    packages=["gargaml"]
+    packages=["gargaml"],
     install_requires=[
         #
         "pandas",
