@@ -2,7 +2,7 @@ import os, sys, logging
 
 from gargaml.imports import *
 
-from gargaml.build.
+from gargaml.build import Build
 from gargaml.data import Data
 from gargaml.eda import EDA
 from gargaml.dl import DL
