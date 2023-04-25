@@ -17,28 +17,28 @@ def create_files() :
 
     # data/
     for dir in data_list : 
-        try
+        try :
             Path(f"{path}/data/{dir}/README.md").touch()
         except Exception as e : 
             logging.error(e)
 
     # assets/
     for dir in data_list : 
-        try
+        try : 
             Path(f"{path}/assets/{dir}/README.md").touch()
         except Exception as e : 
             logging.error(e)
 
     # __init__.py
     for dir in INIT_list : 
-        try
+        try : 
             Path(f"{path}/{dir}/__init__.py").touch()
         except Exception as e : 
             logging.error(e)
 
     # notebooks
     for f in notebooks_list : 
-        try
+        try : 
             Path(f"{path}/notebooks/{f}.ipynb").touch()
         except Exception as e : 
             logging.error(e)
