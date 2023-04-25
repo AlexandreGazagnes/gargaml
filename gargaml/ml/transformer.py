@@ -51,3 +51,7 @@ class Log1pTransformer(BaseEstimator, TransformerMixin):
 #####################################
 #####################################
 #####################################
+
+
+class Transformer : 
+    log1p = Log1pTransformer

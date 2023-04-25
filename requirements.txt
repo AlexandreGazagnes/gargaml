@@ -4,6 +4,8 @@ numpy
 # dataprep
 # mlflow
 # mlflow[extras]
+# openpyxl
+# lxml
 
 scipy
 statsmodels
@@ -58,15 +60,25 @@ wheel
 setuptools
 
 # # nlp
-# spacy
 # nltk
 # wordcloud
+# spacy
 # transformers
+# gensim
+# glove
+# word2vec
 
-# # dl
-# tensorflow
+
+# # deep learning
+tensorflow
+scikeras
 # tensorboard
 # torch 
 # torchvision 
 # torchaudio 
 # # --extra-index-url https://download.pytorch.org/whl/cpu
+
+
+# # Image
+# Pillow
+# opencv-python

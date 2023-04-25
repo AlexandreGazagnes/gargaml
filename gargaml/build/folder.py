@@ -1,19 +1,22 @@
 import os, sys, logging, warnings
 from pathlib import Path
 
-def create_folder() : 
+from .path import README_list, data_list, INIT_list, notebooks_list
+
+
+def create_folders() : 
     """ """
     
-    dir_list = ["assets", "sandbox", "results", "models", "html",  "tests",  "utils",  "data",  "notebooks","src", ".github"]
-    for dir in dir_list : 
+    # all folders
+    for dir in README_list + INIT_list: 
         os.mkdir(dir)
 
-    data_list = ["source", "cleaned", "final"]
+    # data/
     for dir in data_list : 
         os.mkdir(f"data/{dir}")
 
-    github_list = ["worklows"]
-    for dir in github_list : 
-        os.mkdir(f".github/{dir}")
+    # github
+    os.mkdir(".github/")
+    os.mkdir(".github/workflows")
 
 
