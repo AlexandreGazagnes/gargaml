@@ -1,7 +1,6 @@
+import os, sys, random, logging
+
 from sklearn.datasets import *
-
-# from agaml import pd
-
 import pandas as pd
 
 # # import numpy as np
@@ -27,7 +26,9 @@ def _load(data: str, X_y: bool, nan_rate: float):
         nan_numb = int(nan_rate * N)
 
         for _ in range(nan_numb):
-            x, y = random.randint(0, df.shape[0] - 1), random.randint(0, df.shape[1] - 1)
+            x, y = random.randint(0, df.shape[0] - 1), random.randint(
+                0, df.shape[1] - 1
+            )
             df.iloc[x, y] = np.NaN
 
     # y
@@ -97,15 +98,3 @@ def _house(*args, **kwargs):
     url = "https://gist.githubusercontent.com/AlexandreGazagnes/796384619817c9e93e60a288abc188ab/raw/989be9dfbb83e40ac3374bb2d629225be6fcaa1b/dataset_house_price_raw"
 
     return pd.read_csv(url)
-
-
-class Loads:
-    """ """
-
-    boston = _ames
-    ames = _ames
-    iris = _iris
-    seattle = _seattle
-    hr = _hr
-    titanic = _titanic
-    house = _house

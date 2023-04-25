@@ -18,15 +18,15 @@ def resultize(
 ):
     """ """
 
-    if not isinstance(grid, GridSearchCV) : 
-        raise AttributeError('GridSearchCV')
+    if not isinstance(grid, GridSearchCV):
+        raise AttributeError("GridSearchCV")
 
     # acces results
     try:
         global RESULTS
         _RESULTS = True
     except Exception as e:
-        if verbose : 
+        if verbose:
             logging.warning("RESULTS not avialable")
 
     # base res
@@ -42,8 +42,8 @@ def resultize(
     cols = [
         "mean_score_time",
         "std_score_time",
-        "std_fit_time" ,
-    ] # "rank_val_score"
+        "std_fit_time",
+    ]  # "rank_val_score"
 
     res.drop(columns=cols, inplace=True)
 
@@ -85,13 +85,12 @@ def resultize(
         RESULTS = RESULTS.sort_values("mean_test_score", ascending=False)
 
     # verbose
-    if verbose >= 1 : 
+    if verbose >= 1:
         display(res.round(2).head(10))
-    if verbose >=2 : 
+    if verbose >= 2:
         display(RESULTS.round(2).head(5))
 
     return res.round(2).head(10)
-
 
 
 # class Results:

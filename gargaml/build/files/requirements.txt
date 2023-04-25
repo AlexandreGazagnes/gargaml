@@ -1,14 +1,42 @@
 # basics
 pandas 
 numpy 
-# dataprep
+openpyxl
 # mlflow
-# mlflow[extras]
-# openpyxl
-# lxml
+# mlfow[extras]
 
+# stats 
 scipy
 statsmodels
+
+
+# viz
+matplotlib
+seaborn
+plotly
+missingno
+# dataprep
+
+
+# tools
+Ipython
+# voila
+jupyter
+notebook
+jupyterlab
+jupyter_contrib_nbextensions
+jupytext
+ipykernel
+ipywidgets
+session-info
+pandarallel
+# rich
+
+
+# build
+wheel
+setuptools
+
 
 # sk
 scikit-learn
@@ -17,20 +45,8 @@ category_encoders
 lightgbm
 xgboost
 # shap
+# sklearn-pandas
 # evidently
-
-# viz
-matplotlib
-seaborn
-plotly
-missingno
-
-
-# web
-requests
-# flask
-bs4
-kaggle
 
 
 # quality
@@ -40,26 +56,16 @@ pylint
 black
 black[jupyter]
 mypy
-coverage
 
-# tools
-Ipython
-# voila
-jupyter
-notebook
-jupyterlab
-ipykernel
-jupyter_contrib_nbextensions
-jupytext
-ipywidgets
-session-info
-pandarallel
 
-# build
-wheel
-setuptools
+# web
+requests
+# flask
+bs4
+kaggle
 
-# # nlp
+
+# nlp
 # nltk
 # wordcloud
 # spacy
@@ -69,16 +75,15 @@ setuptools
 # word2vec
 
 
-# # deep learning
-tensorflow
-scikeras
+# DL
+# tensorflow
 # tensorboard
 # torch 
 # torchvision 
 # torchaudio 
-# # --extra-index-url https://download.pytorch.org/whl/cpu
+# --extra-index-url https://download.pytorch.org/whl/cpu
 
 
-# # Image
+# Image
 # Pillow
 # opencv-python
