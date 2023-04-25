@@ -2,10 +2,11 @@
 pandas 
 numpy 
 # dataprep
+# mlflow
+# mlflow[extras]
 
 scipy
 statsmodels
-
 
 # sk
 scikit-learn
@@ -14,7 +15,7 @@ category_encoders
 lightgbm
 xgboost
 # shap
-
+# evidently
 
 # viz
 matplotlib
@@ -25,7 +26,7 @@ missingno
 
 # web
 requests
-flask
+# flask
 bs4
 kaggle
 
@@ -39,14 +40,11 @@ black[jupyter]
 mypy
 coverage
 
-
-
 # tools
 Ipython
 # voila
 jupyter
 notebook
-
 jupyterlab
 ipykernel
 jupyter_contrib_nbextensions
@@ -55,18 +53,15 @@ ipywidgets
 session-info
 pandarallel
 
-
 # build
 wheel
 setuptools
-
 
 # # nlp
 # spacy
 # nltk
 # wordcloud
 # transformers
-
 
 # # dl
 # tensorflow
