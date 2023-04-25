@@ -1,4 +1,4 @@
-from gargaml.loads.loads import * 
+from gargaml.loads.loads import *
 
 
 class Loads:

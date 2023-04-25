@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 
+
 @dataclass
 class XY:
     """ """
@@ -21,7 +22,7 @@ class XY:
 @dataclass
 class DataClass:
     """ """
-    
+
     train: XY
     test: XY
     X: pd.DataFrame
@@ -37,8 +38,13 @@ class DataClass:
         return self.train.name
 
 
-def make_data(df: pd.DataFrame, y_name: str, data_name: str="data", test_size: float = 0.33, val_size:int=0.00,
-              ):
+def make_data(
+    df: pd.DataFrame,
+    y_name: str,
+    data_name: str = "data",
+    test_size: float = 0.33,
+    val_size: int = 0.00,
+):
     """ """
 
     # split X, y

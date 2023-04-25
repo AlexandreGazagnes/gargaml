@@ -1,4 +1,4 @@
-from .imports import * 
+from .imports import *
 
 from .build import Build
 from .data import Data
@@ -19,7 +19,7 @@ class Gargaml:
     """ """
 
     build = Build
-    data : Data
+    data: Data
     eda = EDA
     dl = DL
     loads = Loads

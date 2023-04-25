@@ -1,3 +1,2 @@
-def Grid() : 
-    
+def Grid():
     pass

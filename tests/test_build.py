@@ -1,10 +1,10 @@
 import pytest
 
 
-from gargaml import * 
+from gargaml import *
 
 
-def test_build() : 
+def test_build():
     """ """
 
     Build.all()

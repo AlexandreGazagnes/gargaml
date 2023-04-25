@@ -1,10 +1,7 @@
 from .dnn import dnn
 
 
-
-
-class DL : 
-    
+class DL:
     dnn = dnn
     rnn = None
     cnn = None

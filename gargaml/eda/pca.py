@@ -4,13 +4,12 @@ from IPython.display import display
 import numpy as np
 import pandas as pd
 
-from sklearn.preprocessing import * 
-from sklearn.decomposition import * 
+from sklearn.preprocessing import *
+from sklearn.decomposition import *
 
 import seaborn as sns
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 import plotly.express as px
-
 
 
 class Pca:

@@ -1,2 +1,2 @@
-def dnn() : 
+def dnn():
     pass

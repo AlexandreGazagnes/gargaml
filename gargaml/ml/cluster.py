@@ -1,11 +1,11 @@
 import os, logging, warnings, sys, random
 from IPython.display import display
 
-from sklearn.cluster import * 
-from sklearn.metrics import * 
-from sklearn.preprocessing import * 
+from sklearn.cluster import *
+from sklearn.metrics import *
+from sklearn.preprocessing import *
 
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 import plotly.express as px
 import seaborn as sns
 
@@ -256,5 +256,3 @@ class Cluster:
             _df = self.X_cluster[k].value_counts(normalize=normalize)
             _df = _df if not normalize else _df.round(2)
             display(_df)
-
-
