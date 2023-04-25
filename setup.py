@@ -33,7 +33,7 @@ setup(
         "Ipython",
         "jupyter",
         "notebook",
-        "jupterlab",
+        "jupyterlab",
         "ipykernel",
         "session-info",
         "pandarallel",
