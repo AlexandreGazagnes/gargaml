@@ -1,4 +1,4 @@
-from gargaml.loads.loads import *
+from .loads import _ames, _iris, _seattle, _hr, _house, _titanic
 
 
 class Loads:
