@@ -1,0 +1,89 @@
+# basics
+pandas 
+numpy 
+openpyxl
+# mlflow
+# mlfow[extras]
+
+# stats 
+scipy
+statsmodels
+
+
+# viz
+matplotlib
+seaborn
+plotly
+missingno
+# dataprep
+
+
+# tools
+Ipython
+# voila
+jupyter
+notebook
+jupyterlab
+jupyter_contrib_nbextensions
+jupytext
+ipykernel
+ipywidgets
+session-info
+pandarallel
+# rich
+
+
+# build
+wheel
+setuptools
+
+
+# sk
+scikit-learn
+imbalanced-learn
+category_encoders
+lightgbm
+xgboost
+# shap
+# sklearn-pandas
+# evidently
+
+
+# quality
+flake8
+pytest
+pylint
+black
+black[jupyter]
+mypy
+
+
+# web
+requests
+# flask
+bs4
+kaggle
+
+
+# nlp
+# nltk
+# wordcloud
+# spacy
+# transformers
+# gensim
+# glove
+# word2vec
+
+
+# DL
+# tensorflow
+# tensorboard
+# torch 
+# torchvision 
+# torchaudio 
+# --extra-index-url https://download.pytorch.org/whl/cpu
+
+
+# Image
+# Pillow
+# opencv-python
