@@ -13,7 +13,7 @@ setup(
     url="https://github.com/AlexandreGazagnes/gargaml",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    packages=find_packages(), # gargaml
+    packages=find_packages("src"), # gargaml
     # packages=["gargaml"],
     install_requires=[
         #
@@ -37,7 +37,7 @@ setup(
         "notebook",
         "jupyterlab",
         "ipykernel",
-        "session-info",
+        # "session-info",
         "pandarallel",
         #
         "scikit-learn",

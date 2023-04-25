@@ -52,7 +52,7 @@ ipykernel
 jupyter_contrib_nbextensions
 jupytext
 ipywidgets
-session-info
+# session-info
 pandarallel
 
 # build
