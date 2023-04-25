@@ -1,6 +1,4 @@
-from .data import *
-
+from .dataclass import DataClass
 
 class Data:
     dataclass = DataClass
-    make_data = make_data

@@ -1,7 +1,8 @@
-ci = {"name":"main_ci.yaml",
-      "mode" : "w",
-      "source" :      ".github/workflows/", 
-      "txt" :"""name: CI
+ci = {
+    "name": "main_ci.yaml",
+    "mode": "w",
+    "source": ".github/workflows/",
+    "txt": """name: CI
 
 on:
   push:
@@ -45,12 +46,14 @@ jobs:
     - name: Test with Pytest
       run: pytest tests/  # better pytest -vv -x -s tests/
 
-""" , }
+""",
+}
 
-cd = {"name": "main_cd.yaml", 
-      "mode" : "w",
-      "source":".github/workflows/", 
-      "txt" : """name: CI notify
+cd = {
+    "name": "main_cd.yaml",
+    "mode": "w",
+    "source": ".github/workflows/",
+    "txt": """name: CI notify
 
 # Only trigger, when the build workflow succeeded
 on:
@@ -59,4 +62,5 @@ on:
     types:
       - completed
 
-""",}
+""",
+}

@@ -1,8 +1,8 @@
 requirements = {
-    "name" : "requirements.txt", 
-    "mode" : "w", 
-    "source" : "", 
-    "txt" : """
+    "name": "requirements.txt",
+    "mode": "w",
+    "source": "",
+    "txt": """
 # basics
 pandas 
 numpy 
@@ -111,5 +111,5 @@ kaggle
 # # Image
 # Pillow
 # opencv-python
-"""
+""",
 }
