@@ -2,7 +2,7 @@ import os, sys, logging, warnings
 from pathlib import Path
 
 from .files._list import file_list
-from .files._requirements import requirements
+from .files.requirements import requirements
 
 def cp_files() : 
 

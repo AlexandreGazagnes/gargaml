@@ -7,9 +7,9 @@ import numpy as np
 
 # import dataprep
 # from dataprep.datasets import load_dataset
-from pandarallel import pandarallel
+# from pandarallel import pandarallel
 
-pandarallel.initialize(progress_bar=True, nb_workers=4)
+# pandarallel.initialize(progress_bar=True, nb_workers=4)
 
 import matplotlib.pyplot as plt
 import seaborn as sns

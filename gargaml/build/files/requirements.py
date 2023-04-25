@@ -1,3 +1,7 @@
+requirements = {
+    "name" : "requirements.txt", 
+    "source" : "", 
+    "txt" : """
 # basics
 pandas 
 numpy 
@@ -106,3 +110,5 @@ kaggle
 # # Image
 # Pillow
 # opencv-python
+"""
+}
