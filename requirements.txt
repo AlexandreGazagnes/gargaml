@@ -1,6 +1,7 @@
 # basics
 pandas 
 numpy 
+
 scipy
 statsmodels
 
@@ -36,6 +37,8 @@ black
 # tools
 Ipython
 # voila
+jupyter
+notebooks
 ipykernel
 ipywidgets
 session-info
