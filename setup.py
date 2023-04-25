@@ -13,8 +13,9 @@ setup(
     url="https://github.com/AlexandreGazagnes/gargaml",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    package_dir={'':'src'},
-    packages=find_packages("src"), # gargaml
+    # package_dir={'':'src'},
+    # packages=find_packages("src"), # gargaml
+    packages=find_packages(), # gargaml
     # packages=["gargaml"],
     install_requires=[
         #
