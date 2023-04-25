@@ -20,35 +20,44 @@ setup(
         #
         "pandas",
         "numpy",
+        # dataprep
         #
-        "Ipython",
+        "scipy",
+        "statsmodels",
         #
         "matplotlib",
         "seaborn",
         "plotly",
         "missingno",
         #
+        "Ipython",
+        "jupyter",
+        "notebook",
+        "jupterlab",
+        "ipykernel",
+        "session-info",
+        "pandarallel",
+        #
         "scikit-learn",
         "imbalanced-learn",
         "category_encoders",
+        "lightgbm",
+        "xgboost",
+        # "shap",
+        # "evidently",
         #
         "requests",
         "flask",
+        "bs4",
+        "kaggle",
         #
         "flake8",
         "pytest",
         "pylint",
         "black",
-        #
-        "scipy",
-        "statsmodels",
-        #
-        "lightgbm",
-        "xgboost",
-        #
-        # "shap",
-    ],  # add any additional packages that
-    # needs to be installed along with your package. Eg: 'caer'
+        "mypy",
+        "coverage",
+    ],
     keywords=["python", "machine learning"],
     classifiers=[
         "Programming Language :: Python :: 3",
