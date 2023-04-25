@@ -13,7 +13,7 @@ setup(
     url="https://github.com/AlexandreGazagnes/gargaml",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    packages=find_packages("gargaml", "ml", "eda", "build", "data"),
+    packages=find_packages("gargaml"),
     # packages=["gargaml"],
     install_requires=[
         #
