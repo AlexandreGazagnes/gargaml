@@ -1,8 +1,5 @@
-
-
-
 from sklearn.base import BaseEstimator, TransformerMixin
-import numpy as np 
+import numpy as np
 import pandas as pd
 
 import logging, os, sys
@@ -49,8 +46,11 @@ class Log1pTransformer(BaseEstimator, TransformerMixin):
         return _X
 
 
+#####################################
+#####################################
+#####################################
+#####################################
 
-#####################################
-#####################################
-#####################################
-#####################################
+
+class Transformer:
+    log1p = Log1pTransformer

@@ -1,4 +1,4 @@
-from gargaml.eda import EDA
+from gargaml import * 
 
 
 def test_hello():
