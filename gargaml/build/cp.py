@@ -3,6 +3,7 @@ from pathlib import Path
 
 from .files._list import file_list
 from .files.requirements import requirements
+from .files.changelog import changelog
 
 def cp_files() : 
 
@@ -15,7 +16,7 @@ def cp_files() :
     #         logging.error(e)
 
 
-    data_list = [requirements]
+    data_list = [requirements, changelog]
 
     for data in data_list : 
         name, source, txt = data["name"], data["source"], data["txt"]
