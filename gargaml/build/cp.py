@@ -6,5 +6,10 @@ from .files._list import file_list
 
 def cp_files() : 
 
+    path = os.getcwd()
+
     for f in file_list : 
-        Path(f"utils/{f}").touch()
+        try : 
+            Path(f"{path}/utils/{f}").touch()
+        except Exception as e : 
+            logging.error(e)

@@ -6,24 +6,39 @@ def create_files() :
     """ """
 
     path = os.getcwd()
-    logging.warning(f"path is {path}")
+    # logging.warning(f"path is {path}")
 
     # readme files
     for dir in README_list : 
-        Path(f"{dir}/README.md").touch()
+        try : 
+            Path(f"{path}/{dir}/README.md").touch()
+        except Exception as e : 
+            logging.error(e)
 
     # data/
     for dir in data_list : 
-        Path(f"data/{dir}/README.md").touch()
+        try
+            Path(f"{path}/data/{dir}/README.md").touch()
+        except Exception as e : 
+            logging.error(e)
 
     # assets/
     for dir in data_list : 
-        Path(f"assets/{dir}/README.md").touch()
+        try
+            Path(f"{path}/assets/{dir}/README.md").touch()
+        except Exception as e : 
+            logging.error(e)
 
     # __init__.py
     for dir in INIT_list : 
-        Path(f"{dir}/__init__.py").touch()
+        try
+            Path(f"{path}/{dir}/__init__.py").touch()
+        except Exception as e : 
+            logging.error(e)
 
     # notebooks
     for f in notebooks_list : 
-        Path(f"notebooks/{f}.ipynb").touch()
+        try
+            Path(f"{path}/notebooks/{f}.ipynb").touch()
+        except Exception as e : 
+            logging.error(e)

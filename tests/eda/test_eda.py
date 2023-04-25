@@ -1,4 +1,4 @@
-from gargaml import * 
+from gargaml import *
 
 
 def test_hello():

@@ -8,18 +8,25 @@ def create_folders() :
     """ """
     
     path = os.getcwd()
-    logging.warning(f"path is {path}")
+    # logging.warning(f"path is {path}")
 
     # all folders
-    for dir in README_list + INIT_list: 
-        os.mkdir(dir)
-
+    for dir in README_list + INIT_list:
+        try :   
+            os.mkdir(f"{path}/{dir}/")
+        except Exception as e : 
+            logging.error(e)
     # data/
     for dir in data_list : 
-        os.mkdir(f"data/{dir}")
-
+        try :   
+            os.mkdir(f"{path}/data/{dir}/")
+        except Exception as e : 
+            logging.error(e)
+    
     # github
-    os.mkdir(".github/")
-    os.mkdir(".github/workflows")
-
+    try : 
+        os.mkdir(f"{path}/.github/")
+        os.mkdir(f"{path}/.github/workflows/")
+    except Exception as e : 
+            logging.error(e)
 
