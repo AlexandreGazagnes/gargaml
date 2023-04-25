@@ -25,7 +25,7 @@ def create_files() :
     # assets/
     for dir in data_list : 
         try : 
-            Path(f"{path}/assets/{dir}/README.md").touch()
+            Path(f"{path}/assets/README.md").touch()
         except Exception as e : 
             logging.error(e)
 

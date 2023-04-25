@@ -1,24 +1,27 @@
 # basics
 pandas 
 numpy 
-openpyxl
+# openpyxl
+# lxml
 # mlflow
 # mlfow[extras]
+# dataprep
+# haversine
 
-# stats 
+
+# Stats 
 scipy
 statsmodels
 
 
-# viz
+# Viz
 matplotlib
 seaborn
 plotly
 missingno
-# dataprep
 
 
-# tools
+# Tools
 Ipython
 # voila
 jupyter
@@ -33,12 +36,12 @@ pandarallel
 # rich
 
 
-# build
+# Build
 wheel
 setuptools
 
 
-# sk
+# Scikit
 scikit-learn
 imbalanced-learn
 category_encoders
@@ -47,9 +50,23 @@ xgboost
 # shap
 # sklearn-pandas
 # evidently
+# yellowbrick
+# optuna
 
 
-# quality
+# # Spark 
+# pyspark
+# pyspark[sql]
+# pyspark[pandas_on_spark]
+# pyspark[connect]
+
+
+# # Bdd 
+# SQLAlchemy
+# redis
+
+
+# Quality
 flake8
 pytest
 pylint
@@ -58,14 +75,15 @@ black[jupyter]
 mypy
 
 
-# web
+# Web
 requests
-# flask
 bs4
 kaggle
+# flask
+# selenium
 
 
-# nlp
+# # Nlp
 # nltk
 # wordcloud
 # spacy
@@ -75,15 +93,16 @@ kaggle
 # word2vec
 
 
-# DL
+# # DL
 # tensorflow
 # tensorboard
+# scikeras
 # torch 
 # torchvision 
 # torchaudio 
 # --extra-index-url https://download.pytorch.org/whl/cpu
 
 
-# Image
+# # Image
 # Pillow
 # opencv-python
