@@ -15,3 +15,14 @@ def test_first_tour():
     EDA.first_tour.display(df)
     EDA.first_tour.info(df)
     EDA.first_tour.describe(df)
+
+
+def test_nan() : 
+
+
+
+    from gargaml import Loads, EDA
+
+    df = Loads.ames(X_y=False)
+
+    EDA.nan.viz()

@@ -200,6 +200,6 @@ def resultize(
 #         return _res
 
 
-class Results : 
+class Results:
     resultize = resultize
     data = None

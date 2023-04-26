@@ -1,2 +1,2 @@
-class Grid():
+class Grid:
     pass

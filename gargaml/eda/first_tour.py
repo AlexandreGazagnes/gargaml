@@ -18,12 +18,11 @@ class FirstTour:
         m = data.memory_usage().sum() / 1000_000
         display(f"shape {data.shape}, memory {round(m,2)}MB")
         print()
-        
+
         for t in ["float", "int", "bool", "object", "datetime"]:
             tmp = data.select_dtypes(t).copy()
 
             if tmp.shape[1]:
-
                 print()
                 display(f"---- {t[:3].upper()} ----")
 
@@ -34,7 +33,6 @@ class FirstTour:
                 uniq = tmp.nunique().values
                 uniq_p = (tmp.nunique().values / len(tmp)).round(2)
                 is_sku = tmp.nunique().values == len(tmp)
-
 
                 dd = {
                     "cols": cols,
@@ -48,13 +46,15 @@ class FirstTour:
 
                 for i in range(n_rand):
                     dd[f"val_rand_{i}"] = data.sample(1).iloc[0]
-                    if t in ["float", ] : 
+                    if t in [
+                        "float",
+                    ]:
                         dd[f"val_rand_{i}"] = dd[f"val_rand_{i}"].round(4)
 
-                    dd[f"val_rand_{i}"]  = dd[f"val_rand_{i}"].values
+                    dd[f"val_rand_{i}"] = dd[f"val_rand_{i}"].values
 
                 display(pd.DataFrame(dd))
-        
+
         # return pd.DataFrame(dd)
 
     @classmethod
@@ -78,13 +78,11 @@ class FirstTour:
         print()
         print()
 
-
         tmp = data.tail(n).copy()
         tmp.columns.name = "----TAIL ----"
         display(tmp)
         print()
         print()
-
 
     @classmethod
     def describe(

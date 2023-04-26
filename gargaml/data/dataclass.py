@@ -39,9 +39,9 @@ class XX(pd.DataFrame):
         self._test_tuple = test_tuple
         self._val_tuple = val_tuple
 
-        self.train= self.iloc[self._train_tuple[0] : self._train_tuple[1], :]
-        self.test= self.iloc[self._test_tuple[0] : self._test_tuple[1], :]
-        self.val= self.iloc[self._val_tuple[0] : self._val_tuple[1], :]
+        self.train = self.iloc[self._train_tuple[0] : self._train_tuple[1], :]
+        self.test = self.iloc[self._test_tuple[0] : self._test_tuple[1], :]
+        self.val = self.iloc[self._val_tuple[0] : self._val_tuple[1], :]
         self.name = name
 
 
@@ -63,9 +63,9 @@ class YY(pd.Series):
         self._test_tuple = test_tuple
         self._val_tuple = val_tuple
 
-        self.train= self.iloc[self._train_tuple[0] : self._train_tuple[1]]
-        self.test= self.iloc[self._test_tuple[0] : self._test_tuple[1]]
-        self.val= self.iloc[self._val_tuple[0] : self._val_tuple[1]]
+        self.train = self.iloc[self._train_tuple[0] : self._train_tuple[1]]
+        self.test = self.iloc[self._test_tuple[0] : self._test_tuple[1]]
+        self.val = self.iloc[self._val_tuple[0] : self._val_tuple[1]]
         self.name = name
 
 
@@ -196,8 +196,6 @@ class DataClass:
     def X(self):
         """faire data.X.train ou data.X.test"""
 
-
-        
         train_tuple = self._start_stop("train")
         print(train_tuple)
 
@@ -256,7 +254,6 @@ class DataClass:
 
         return y_log
 
-
     def __repr__(self) -> str:
         return f"""
 DataClass(X={len(self.X)}, train.X={len(self.train.X)}, X.train={len(self.X.train)}
@@ -265,12 +262,10 @@ y_train_size={len(self.y.train)}, y_test_size={len(self.y.test)}, y_val_size={le
 """
 
 
-
-
 # df = pd.DataFrame({"a" : range(20), "b" : range(20)})
 
 
-# class DF(pd.DataFrame) : 
+# class DF(pd.DataFrame) :
 
 #     def __init__(self, df, sta=1, sto=10) -> None:
 #         super().__init__(df.copy())
