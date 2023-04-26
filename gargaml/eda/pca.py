@@ -26,7 +26,7 @@ class Pca:
     def __init__(
         self,
         _df,
-        customer_id_col="customer_unique_id",
+        id_col=None,
     ) -> None:
         """ """
 
@@ -35,7 +35,7 @@ class Pca:
 
         # display(_df)
 
-        self.id_column = _df.loc[:, customer_id_col].values
+        self.id_column = _df.loc[:, id_col].values if id_col else _df.index.values
         X_num = _df.select_dtypes(include=np.number).copy()
 
         # X_scaled

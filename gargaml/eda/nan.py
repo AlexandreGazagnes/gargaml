@@ -33,7 +33,7 @@ class Nan:
     ):
         """filter cols by nan rate > threshold"""
 
-        tmp = df.isna(axis=axis).mean().sort_values(ascending=False)
+        tmp = df.isna().mean(axis=axis).sort_values(ascending=False)
         tmp = tmp[tmp >= threshold]
         return tmp.round(3)
 
@@ -66,6 +66,14 @@ class Nan:
             return tmp[tmp >= threshold].index.tolist()
 
         return []
+
+    @classmethod
+    def duplicated(cls, df, subset=None) : 
+
+        if not subset :
+            subset = []
+
+        return df.duplicated().sum().sum()
 
     # @classmethod
     # def study_distribution(

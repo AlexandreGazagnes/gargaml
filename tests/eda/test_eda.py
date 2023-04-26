@@ -25,4 +25,10 @@ def test_nan() :
 
     df = Loads.ames(X_y=False)
 
-    EDA.nan.viz()
+    EDA.nan.viz(df)
+    EDA.nan.rate(df)
+    EDA.nan.rate(df,threshold=0.3)
+
+
+def test_study()  : 
+    pass

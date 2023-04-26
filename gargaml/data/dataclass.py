@@ -82,6 +82,7 @@ class DataClass:
         drop_cols=None,
         test_size=0.33,
         val_size=0.00,
+        drop_target_nan = True,
         shuffle=True,
     ):
         """
@@ -100,6 +101,14 @@ class DataClass:
         assert 0.33 >= test_size >= 0.01
         assert 0.33 >= val_size >= 0.0
 
+        ############################
+
+
+        # TO DOO DROP y Nan
+
+
+        ############################
+
         # split X, y
         self.shuffle = shuffle
         self.data_name = data_name
@@ -107,6 +116,7 @@ class DataClass:
         self.y_name = y_name
         self.test_size = test_size
         self.val_size = val_size
+        self.drop_target_nan = drop_target_nan
         self.train_size = round(1 - test_size - val_size, 2)
 
         # _X, _y
