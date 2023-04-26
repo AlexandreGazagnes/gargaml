@@ -13,7 +13,7 @@ class XY:
     """ """
 
     X: pd.DataFrame
-    y: pd.DataFrame
+    y: pd.Series
     name: str = ""
 
     @property
@@ -22,17 +22,57 @@ class XY:
 
 
 @dataclass
-class TVT:
+class XX(pd.DataFrame):
     """ """
 
-    train: pd.DataFrame
-    test: pd.DataFrame
-    val: pd.DataFrame
-    name: str = ""
+    def __init__(
+        self,
+        _X: pd.DataFrame,
+        train_tuple: list,
+        test_tuple: list = [-1, -1],
+        val_tuple: list = [-1, -1],
+        name: str = "",
+    ):
+        super().__init__(_X)
+
+        self._train_tuple = train_tuple
+        self._test_tuple = test_tuple
+        self._val_tuple = val_tuple
+
+        self.train= self.iloc[self._train_tuple[0] : self._train_tuple[1], :]
+        self.test= self.iloc[self._test_tuple[0] : self._test_tuple[1], :]
+        self.val= self.iloc[self._val_tuple[0] : self._val_tuple[1], :]
+        self.name = name
 
 
-def DataClass():
+@dataclass
+class YY(pd.Series):
     """ """
+
+    def __init__(
+        self,
+        _y: pd.Series,
+        train_tuple: list,
+        test_tuple: list = [-1, -1],
+        val_tuple: list = [-1, -1],
+        name: str = "",
+    ):
+        super().__init__(_y)
+
+        self._train_tuple = train_tuple
+        self._test_tuple = test_tuple
+        self._val_tuple = val_tuple
+
+        self.train= self.iloc[self._train_tuple[0] : self._train_tuple[1]]
+        self.test= self.iloc[self._test_tuple[0] : self._test_tuple[1]]
+        self.val= self.iloc[self._val_tuple[0] : self._val_tuple[1]]
+        self.name = name
+
+
+class DataClass:
+    """
+    Ml Data Class : X/y and Train/Test/Val spliter
+    """
 
     def __init__(
         self,
@@ -44,7 +84,15 @@ def DataClass():
         val_size=0.00,
         shuffle=True,
     ):
-        """ """
+        """
+        df: pd.DataFrame,
+        y_name: str,
+        data_name="",
+        drop_cols=None,
+        test_size=0.33,
+        val_size=0.00,
+        shuffle=True,
+        """
 
         if not isinstance(df, pd.DataFrame):
             raise AttributeError()
@@ -59,12 +107,12 @@ def DataClass():
         self.y_name = y_name
         self.test_size = test_size
         self.val_size = val_size
-        self.train_size = 1 - test_size - val_size
+        self.train_size = round(1 - test_size - val_size, 2)
 
         # _X, _y
-        _df = _df.copy() if not shuffle else _df.sample(frac=1.0)
-        self.X = _df.drop(columns=self.drop_cols + self.y_name)
-        self.y = _df[y_name].copy()
+        _df = df.copy() if not shuffle else df.sample(frac=1.0)
+        self._X = _df.drop(columns=self.drop_cols + [self.y_name]).copy()
+        self._y = _df[y_name].copy()
         del _df
 
         # idxs = self._X.index
@@ -109,8 +157,8 @@ def DataClass():
         _start, _stop = self._start_stop("train")
 
         xy = XY(
-            self.X.iloc[_start:_stop, :],
-            self.y.iloc[_start:_stop],
+            self._X.iloc[_start:_stop, :],
+            self._y.iloc[_start:_stop],
             name=self.data_name,
         )
 
@@ -123,8 +171,8 @@ def DataClass():
         _start, _stop = self._start_stop("test")
 
         xy = XY(
-            self.X.iloc[_start:_stop, :],
-            self.y.iloc[_start:_stop],
+            self._X.iloc[_start:_stop, :],
+            self._y.iloc[_start:_stop],
             name=self.data_name,
         )
 
@@ -137,8 +185,8 @@ def DataClass():
         _start, _stop = self._start_stop("val")
 
         xy = XY(
-            self.X.iloc[_start:_stop, :],
-            self.y.iloc[_start:_stop],
+            self._X.iloc[_start:_stop, :],
+            self._y.iloc[_start:_stop],
             name=self.data_name,
         )
 
@@ -148,65 +196,96 @@ def DataClass():
     def X(self):
         """faire data.X.train ou data.X.test"""
 
-        _start, _stop = self._start_stop("train")
-        X_train = self.X.iloc[: self.train_size]
 
-        _start, _stop = self._start_stop("test")
-        X_test = self.X.iloc[_start:_stop]
+        
+        train_tuple = self._start_stop("train")
+        print(train_tuple)
 
-        _start, _stop = self._start_stop("val")
-        X_val = self.X.iloc[_start:_stop]
+        test_tuple = self._start_stop("test")
+        print(test_tuple)
+
+        val_tuple = self._start_stop("val")
+        print(val_tuple)
 
         # tvt
-        tvt = TVT(
-            X_train,
-            X_test,
-            X_val,
+        x = XX(
+            self._X,
+            train_tuple,
+            test_tuple,
+            val_tuple,
             name=self.data_name,
         )
 
-        return tvt
+        return x
 
     @property
     def y(self):
-        _start, _stop = self._start_stop("train")
-        y_train = self.y.iloc[: self.train_size]
+        """ """
 
-        _start, _stop = self._start_stop("test")
-        y_test = self.y.iloc[_start:_stop]
-
-        _start, _stop = self._start_stop("val")
-        y_val = self.y.iloc[_start:_stop]
+        train_tuple = self._start_stop("train")
+        test_tuple = self._start_stop("test")
+        val_tuple = self._start_stop("val")
 
         # tvt
-        tvt = TVT(
-            y_train,
-            y_test,
-            y_val,
+        y = YY(
+            self._y,
+            train_tuple,
+            test_tuple,
+            val_tuple,
             name=self.data_name,
         )
 
-        return tvt
+        return y
 
     @property
     def y_log(self):
         pass
 
-        _start, _stop = self._start_stop("train")
-        y_log_train = self.y_log.iloc[: self.train_size]
-
-        _start, _stop = self._start_stop("test")
-        y_log_test = self.y_log.iloc[_start:_stop]
-
-        _start, _stop = self._start_stop("val")
-        y_log_val = self.y_log.iloc[_start:_stop]
+        train_tuple = self._start_stop("train")
+        test_tuple = self._start_stop("test")
+        val_tuple = self._start_stop("val")
 
         # tvt
-        tvt = TVT(
-            y_log_train,
-            y_log_test,
-            y_log_val,
+        y_log = YY(
+            self.y_log,
+            train_tuple,
+            test_tuple,
+            val_tuple,
             name=self.data_name,
         )
 
-        return tvt
+        return y_log
+
+
+    def __repr__(self) -> str:
+        return f"""
+DataClass(X={len(self.X)}, train.X={len(self.train.X)}, X.train={len(self.X.train)}
+X_train_size={len(self.X.train)}, X_test_size={len(self.X.test)}, X_val_size={len(self.X.val)}
+y_train_size={len(self.y.train)}, y_test_size={len(self.y.test)}, y_val_size={len(self.y.val)} )
+"""
+
+
+
+
+# df = pd.DataFrame({"a" : range(20), "b" : range(20)})
+
+
+# class DF(pd.DataFrame) : 
+
+#     def __init__(self, df, sta=1, sto=10) -> None:
+#         super().__init__(df.copy())
+
+#         self.sta = sta
+#         self.sto = sto
+
+#         self.train = self.iloc[self.sta : self.sto]
+#         self.stop = self.iloc[:self.sto : , :]
+
+# from IPython.display import display
+
+
+# _df = DF(df)
+# display(_df)
+
+
+# display(_df.train)
