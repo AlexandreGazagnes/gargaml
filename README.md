@@ -11,4 +11,17 @@ Modules
 * Loads
 * ML
 
+
+
+<!-- 
+from gargaml import Loads 
+from gargaml.data imort DataClass
+
+
+df = Loads.ames()
+
+data = DataClass(df, y) -->
+
+
+
 # build on 
