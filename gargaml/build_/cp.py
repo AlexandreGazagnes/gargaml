@@ -7,6 +7,8 @@ from .files.cicd import ci, cd
 from .files.gitignore import gitignore
 from .files.requirements import requirements
 
+# from .files.docker import *
+
 
 def cp_files():
     path = os.getcwd()
@@ -17,7 +19,13 @@ def cp_files():
     #     except Exception as e :
     #         logging.error(e)
 
-    data_list = [changelog, ci, cd, gitignore, requirements]
+    data_list = [
+        changelog,
+        ci,
+        cd,
+        gitignore,
+        requirements,
+    ]
 
     for data in data_list:
         name, source, txt, mode = (
