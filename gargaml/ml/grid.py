@@ -1,2 +1,2 @@
-def Grid():
+class Grid():
     pass

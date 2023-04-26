@@ -7,6 +7,9 @@ from gargaml.data import Data
 from gargaml.eda import EDA
 from gargaml.dl import DL
 from gargaml.loads import Loads
+from gargaml.ml import ML
+from gargaml.walkthrough import Walkthrough
+
 
 # from gargaml.ml import ML
 
@@ -26,4 +29,6 @@ class Gargaml:
     eda = EDA
     dl = DL
     loads = Loads
-    # ml = ML
+    ml = ML
+    walkthrough = Walkthrough
+

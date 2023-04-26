@@ -1,15 +1,35 @@
-import pandas as pd
-import matplotlib.pyplot as plt
+import os, logging
 
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import missingno as msno
+import plotly.express as px
 
 class Nan:
     """class Nan"""
 
     @classmethod
-    def nan_rate(
+    def count(
         cls,
         df: pd.DataFrame,
         threshold=0.0,
+        axis=0,
+    ):
+        """filter cols by nan rate > threshold"""
+
+        tmp = df.isna().sum().sort_values(ascending=False)
+        tmp = tmp[tmp >= threshold]
+        return tmp.round(3)
+
+
+    @classmethod
+    def rate(
+        cls,
+        df: pd.DataFrame,
+        threshold=0.0,
+        axis=0,
     ):
         """filter cols by nan rate > threshold"""
 
@@ -18,7 +38,7 @@ class Nan:
         return tmp.round(3)
 
     @classmethod
-    def nan_cols(
+    def cols(
         cls,
         df: pd.DataFrame,
         threshold: float,
@@ -28,6 +48,10 @@ class Nan:
         tmp = cls.nan_rate(df, threshold=threshold)
 
         return tmp[tmp >= threshold].index.tolist()
+    
+    @classmethod
+    def lines(cls, df:pd.DataFrame, threshold: float) : 
+        pass
 
     @classmethod
     def study_distribution(
@@ -69,3 +93,9 @@ class Nan:
         print(ser.describe())
 
         return None
+    
+    @classmethod
+    def viz(cls, df) : 
+
+        # msno.matrix(df)
+        pass

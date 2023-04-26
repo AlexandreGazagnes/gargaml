@@ -4,7 +4,7 @@ from gargaml import Loads
 from gargaml.data import DataClass
 
 
-def test_init():
+def test_init_dataClass():
 
 
     df = Loads.ames(X_y=False)

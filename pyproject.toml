@@ -6,6 +6,7 @@ target-version = ['py36', 'py37', 'py38', 'py39']
 python_files = [
     'loads/*',
     'data/*', 
+    'eda/*'
     #     'build/*.py'
 
 ]
