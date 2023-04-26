@@ -1,5 +1,5 @@
-changelog = {
-    "name": "CHANGELOG.md",
+push = {
+    "name": "push.sh",
     "source": "",
     "mode": "w",
     "txt": """\n""",
