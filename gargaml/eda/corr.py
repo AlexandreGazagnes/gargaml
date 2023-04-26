@@ -20,6 +20,7 @@ from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
+from sklearn.preprocessing import StandardScaler
 
 sns.set()
 
@@ -169,10 +170,14 @@ class Study:
 
 
     @classmethod
-    def vif(cls, df) : 
+    def vif(cls, df, scale=False) : 
         
         _df = df.select_dtypes(include=np.number)
         
+        if scale : 
+            sca = StandardScaler()
+            _df = pd.DataFrame(sca.fit_transform(_df), columns=_df.columns) 
+
         vif_data = pd.DataFrame()
         vif_data["feature"] = _df.columns
         
@@ -181,3 +186,5 @@ class Study:
                                 for i in range(len(_df.columns))]
         
         return vif_data.sort_values("vif", ascending=False).round(2)
+    
+
