@@ -130,17 +130,19 @@ class Pca:
 
     def correlation_graph(
         self,
-        x_y,
+        dim,
     ):
         """Affiche le graphe des correlations
 
         Positional arguments :
         -----------------------------------
-        x_y : list ou tuple : le couple x,y des plans à afficher, exemple [0,1] pour F1, F2
+        dim : list ou tuple : le couple x,y des plans à afficher, exemple [0,1] pour F1, F2
         """
 
+        # TODO ==> USE PX and NOT MATPLOTLIB
+
         # Extrait x et y
-        x, y = x_y
+        x, y = dim
 
         # features
         features = self.X_scaled.columns
@@ -195,83 +197,20 @@ class Pca:
         plt.axis("equal")
         plt.show(block=False)
 
-    def factorial_planes(
+    def _2d_factorial_planes(
         self,
-        x_y,
-        labels: str = None,
-        clusters: str = None,
-        alpha: float = 1,
-        figsize: list = [10, 8],
-        marker: str = ".",
+        X_,
+        dim,
+        labels,
+        clusters,
+        alpha,
+        figsize,
+        marker,
     ):
-        """
-        Affiche la projection des individus
-
-        Positional arguments :
-        -------------------------------------
-        x_y : list ou tuple : le couple x,y des plans à afficher, exemple [0,1] pour F1, F2
-
-        Optional arguments :
-        -------------------------------------
-        labels : str, list/tuple : les labels des individus à projeter, default = None
-        si str on va chercher la colonne du df, si list on ajoute ex nihilo
-        clusters : list ou tuple : la liste des clusters auquel appartient chaque individu, default = None
-        si str on va chercher la colonne du df, si list on ajoute ex nihilo
-        alpha : float in [0,1] : paramètre de transparence, 0=100% transparent, 1=0% transparent, default = 1
-        figsize : list ou tuple : couple width, height qui définit la taille de la figure en inches, default = [10,8]
-        marker : str : le type de marker utilisé pour représenter les individus, points croix etc etc, default = "."
-        """
-
-        # Transforme self.X_proj en np.array
-        X_ = np.array(self.X_proj)
-
-        # On définit la forme de la figure si elle n'a pas été donnée
-        if not figsize:
-            figsize = (7, 6)
-
-        # On gère les labels
-
-        if (
-            isinstance(labels, [list, tuple, pd.Series]) # np.ndarray
-
-        ):
-            labels = labels
-        elif labels in [None, "", 0, False, []]:
-            labels = []
-        elif isinstance(labels, str):
-            labels = self.X.loc[:, labels].values
-
-        try:
-            len(labels)
-        except Exception as e:
-            raise e
-
-        # idem clusters
-        # On vérifie s'il y a des clusters ou non
-        if clusters in [None, "", 0, False, []]:
-            clusters = []
-        elif isinstance(clusters, str):
-            clusters = self.X.loc[:, clusters].values
-        elif (
-            isinstance(clusters, list)
-            or isinstance(clusters, tuple)
-            or isinstance(clusters, pd.Series)
-            or isinstance(clusters, np.array)
-        ):
-            clusters = clusters
-        try:
-            len(clusters)
-        except Exception as e:
-            raise e
-
-        # On vérifie la variable axis
-        if not len(x_y) == 2:
-            raise AttributeError("2 axes sont demandées")
-        if max(x_y) >= X_.shape[1]:
-            raise AttributeError("la variable axis n'est pas bonne")
+        # TODO USE PX
 
         # on définit x et y
-        x, y = x_y
+        x, y = dim
 
         # Initialisation de la figure
         fig, ax = plt.subplots(1, 1, figsize=figsize)
@@ -315,3 +254,156 @@ class Pca:
         # Titre et display
         plt.title(f"Projection des individus (sur F{x+1} et F{y+1})")
         plt.show()
+
+
+    def _3d_factorial_planes(
+        self,
+        X_,
+        dim,
+        labels,
+        clusters,
+        alpha,
+        figsize,
+        marker,
+    ):
+        """ """
+
+        # TODO USE PX
+
+        # on définit x et y
+        x, y, z = dim
+
+        # Initialisation de la figure
+        # fig, ax = plt.subplots(1, 1, figsize=figsize)
+
+        # Les points
+        # plt.scatter(   X_[:, x], X_[:, y], alpha=alpha,
+        #                     c=c, cmap="Set1", marker=marker)
+
+
+        axis = [f"PC_{i+1}" for i in dim]
+        if len(clusters):
+            if isinstance(clusters, pd.Series) : 
+                clusters= clusters.values
+
+            clusters = [str(i) for i in clusters]
+            fig = px.scatter_3d( x=X_[:, x], y=X_[:, y], z=X_[:, z], color=clusters, labels=axis)
+        else:
+
+            fig = px.scatter_3d( x=X_[:, x], y=X_[:, y], z=X_[:, z], labels=axis)
+
+
+
+        fig.update_traces(marker=dict(size=3),
+
+                        selector=dict(mode='markers'))
+
+        fig.show()
+
+
+
+    def factorial_planes(
+        self,
+        dim,
+        labels: str = None,
+        clusters: str = None,
+        alpha: float = 1,
+        figsize: list = [10, 8],
+        marker: str = ".",
+    ):
+        """
+        Affiche la projection des individus
+
+        Positional arguments :
+        -------------------------------------
+        dim : list ou tuple : le couple x,y des plans à afficher, exemple [0,1] pour F1, F2
+
+        Optional arguments :
+        -------------------------------------
+        labels : str, list/tuple : les labels des individus à projeter, default = None
+        si str on va chercher la colonne du df, si list on ajoute ex nihilo
+        clusters : list ou tuple : la liste des clusters auquel appartient chaque individu, default = None
+        si str on va chercher la colonne du df, si list on ajoute ex nihilo
+        alpha : float in [0,1] : paramètre de transparence, 0=100% transparent, 1=0% transparent, default = 1
+        figsize : list ou tuple : couple width, height qui définit la taille de la figure en inches, default = [10,8]
+        marker : str : le type de marker utilisé pour représenter les individus, points croix etc etc, default = "."
+        """
+
+        # TODO USE PX
+
+        # Transforme self.X_proj en np.array
+        X_ = np.array(self.X_proj)
+
+        # On définit la forme de la figure si elle n'a pas été donnée
+        if not figsize:
+            figsize = (7, 6)
+
+        # check LABELS
+
+        types = (list, tuple, pd.Series, np.ndarray)
+        if isinstance(labels, types):  # np.ndarray
+            if not len(labels) == len(X_):
+                raise AttributeError(
+                    f"labels len {len(labels)} and X len {len(self.X)} not len OK"
+                )
+        elif labels in [None, "", 0, False, []]:
+            labels = []
+        elif isinstance(labels, str):
+            if labels not in self.X.columns:
+                raise AttributeError(f"label {labels} not in X => {self.X.columns}")
+            labels = self.X.loc[:, labels].values
+
+        # sanitary check
+        try:
+            len(labels)
+        except Exception as e:
+            logging.error(f"len labels failed : {labels}")
+            raise e
+
+        # check CLUSTERS
+
+        if isinstance(clusters, types):  # np.ndarray
+            if not len(clusters) == len(X_):
+                raise AttributeError(
+                    f"clusters len {len(clusters)} and X len {len(self.X)} not len OK"
+                )
+        elif clusters in [None, "", 0, False, []]:
+            clusters = []
+        elif isinstance(clusters, str):
+            if str not in self.X.columns:
+                raise AttributeError(f"label {clusters} not in X => {self.X.columns}")
+            clusters = self.X.loc[:, clusters].values
+
+        # sanitary check
+        try:
+            len(clusters)
+        except Exception as e:
+            logging.error(f"len clusters failed : {clusters}")
+            raise e
+
+        # axis 12321 is pb
+        if max(dim) >= X_.shape[1]:
+            raise AttributeError("la variable axis n'est pas bonne")
+
+        if len(dim) == 2:
+            self._2d_factorial_planes(
+                X_,
+                dim,
+                labels,
+                clusters,
+                alpha,
+                figsize,
+                marker,
+            )
+
+        if len(dim) == 3:
+            self._3d_factorial_planes(
+                X_,
+                dim,
+                labels,
+                clusters,
+                alpha,
+                figsize,
+                marker,
+            )
+
