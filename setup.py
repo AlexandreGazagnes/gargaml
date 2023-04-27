@@ -6,22 +6,25 @@ LONG_DESCRIPTION = "A personal ML lib"
 
 # Setting up
 setup(
-    # the name must match the folder name 'verysimplemodule'
     name="gargaml",
     version=VERSION,
-    author="Alex Gazagnes",
+    author="Alexandre Gazagnes",
     author_email="<alex.gaz@email.com>",
     url="https://github.com/AlexandreGazagnes/gargaml",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    # packages=find_packages(),
-    packages=find_packages(),
+    # package_dir={'':'src'},
+    # packages=find_packages("src"), # gargaml
+    packages=find_packages(),  # gargaml
+    # packages=["gargaml"],
     install_requires=[
         #
         "pandas",
         "numpy",
         # dataprep
-        #
+        # lxml
+        # openpyxl
+        # lxml
         "scipy",
         "statsmodels",
         #
@@ -35,7 +38,7 @@ setup(
         "notebook",
         "jupyterlab",
         "ipykernel",
-        "session-info",
+        # "session-info",
         "pandarallel",
         #
         "scikit-learn",

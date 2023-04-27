@@ -1,0 +1,10 @@
+env/
+.git/
+
+.ipy*
+
+__pycache__/
+
+
+# Jupyter Notebook
+.ipynb_checkpoints

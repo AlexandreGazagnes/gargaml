@@ -198,3 +198,8 @@ def resultize(
 #             _res = pd.concat([_res, __res], ignore_index=True)
 
 #         return _res
+
+
+class Results:
+    resultize = resultize
+    data = None
