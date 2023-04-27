@@ -1,0 +1,16 @@
+## 2023-04-27 : 
+- OK for PCA
+- OK for EDA skew, display info etc etc
+- OK for Loads
+- TODO IMPLEMENT clean
+- TODO work on cluster
+- TODO work on ML (data, results etc etc)
+- todo add loads dfs 
+- to fix nan rates ???
+- tofdo fix info spec random values
+- todo hanlde Outliers pb
+- to do swap ACP to px (not sns or plt)
+- to do implenment TSNE
+- TODO IMPROVE BUILD WITH PRE played Notebooks (text)
+- todo rename first tour as display 
+- TODO ==> instance method of  pd.DataFRAME not EDA.nan.rate(df) but df.nan.rate()
