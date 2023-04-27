@@ -18,6 +18,12 @@ def resultize(
 ):
     """ """
 
+    #################################
+
+
+    #################################
+    #################################
+
     if not isinstance(grid, GridSearchCV):
         raise AttributeError("GridSearchCV")
 
