@@ -20,8 +20,7 @@ from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
-from sklearn.preprocessing import StandardScaler
-
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 from sklearn.impute import KNNImputer
 
@@ -61,13 +60,24 @@ class Study:
         df,
         display_=True,
         force_nan_impute=True,
+        nan_threhold=0.5,
+        scale=False, 
     ):
         """compute skew for num cols and display log1p gain for each"""
 
         _df = df.select_dtypes(include=np.number)
 
+        # errro r if 100% nan
+        tmp = df.isna().mean()
+        tmp = tmp[tmp >= nan_threhold]
+        _df = _df.drop(columns=tmp.index)
+
         if force_nan_impute:
             _df = pd.DataFrame(KNNImputer().fit_transform(_df), columns=_df.columns)
+
+
+        if scale : 
+            _df = pd.DataFrame(MinMaxScaler().fit_transform(_df), columns=_df.columns)
 
         cols = _df.columns
         raw_skew = [_df[c].skew() for c in cols]
@@ -119,14 +129,41 @@ class Study:
         return skew
 
     @classmethod
-    def outlier(cls, df, display_=True, model="e", force_nan_impute=True):
+    def outlier(
+        cls,
+        df,
+        display_=True,
+        model="e",
+        force_nan_impute=True,
+        nan_threhold=0.5,
+        scale = False,
+        ignore_cols:list=None,
+    ):
         """apply outlier stat traeatment display desribe before / after return df with _outlier col"""
 
         assert model in ["e", "i", "k"]
 
+        if ignore_cols : 
+            raise NotImplementedError("ajouter des cols à mettre decolté via une liste (latitude, logitude)")
+
+
         _df = df.select_dtypes(include=np.number)
 
-        __df = pd.DataFrame(KNNImputer().fit_transform(_df), columns=_df.columns)
+        # errro r if 100% nan
+        tmp = df.isna().mean()
+        tmp = tmp[tmp >= nan_threhold]
+        _df = _df.drop(columns=tmp.index)
+
+        if force_nan_impute : 
+
+            __df = pd.DataFrame(KNNImputer().fit_transform(_df), columns=_df.columns)
+        else : 
+            __df = _df.copy()
+
+        if scale : 
+            sca = StandardScaler()
+            __df = pd.DataFrame(sca.fit_transform(__df), columns=__df.columns)
+
 
         if model == "e":
             model = EllipticEnvelope
@@ -184,7 +221,7 @@ class Study:
                 fig.update_layout(
                     height=300,
                     width=800,
-                    title_text=f"RAW {c} [ min, mean, max] => norm  : {min_mean_max } ==> cleaned {_min_mean_max} ",
+                    title_text=f"RAW {c} [ min, mean, max]\nnorm  : {min_mean_max } ==> cleaned {_min_mean_max} ",
                 )
                 fig.show()
 
@@ -194,8 +231,16 @@ class Study:
         return _df
 
     @classmethod
-    def vif(cls, df, scale=False, force_nan_impute=True):
+    def vif(cls, df, scale:bool=False, force_nan_impute:bool=True, nan_threhold:float=0.5):
+        
         _df = df.select_dtypes(include=np.number)
+
+        # errro r if 100% nan
+        tmp = df.isna().mean()
+        tmp = tmp[tmp >= nan_threhold]
+        _df = _df.drop(columns=tmp.index)
+
+
         if force_nan_impute:
             _df = pd.DataFrame(KNNImputer().fit_transform(_df), columns=_df.columns)
 

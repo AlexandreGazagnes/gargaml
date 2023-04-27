@@ -65,7 +65,7 @@ def _seattle(year="2016", *args, **kwargs):
         assert isinstance(df, pd.DataFrame)
         return df
 
-    return None
+    return NotImplementedError()
 
 
 def _titanic(

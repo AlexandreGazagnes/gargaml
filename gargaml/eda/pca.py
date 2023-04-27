@@ -214,7 +214,6 @@ class Pca:
         # Initialisation de la figure
         fig, ax = plt.subplots(1, 1, figsize=figsize)
 
-
         if len(clusters):
             sns.scatterplot(data=None, x=X_[:, x], y=X_[:, y], hue=clusters)
         else:
@@ -252,7 +251,6 @@ class Pca:
         plt.title(f"Projection des individus (sur F{x+1} et F{y+1})")
         plt.show()
 
-
     def _3d_factorial_planes(
         self,
         X_,
@@ -269,34 +267,30 @@ class Pca:
 
         # TOD ADD LABELS AS TEXT
 
-        # axis name 
+        # axis name
 
         v1 = str(round(100 * self.pca.explained_variance_ratio_[x])) + " %"
         v2 = str(round(100 * self.pca.explained_variance_ratio_[y])) + " %"
-        v3= str(round(100 * self.pca.explained_variance_ratio_[z])) + " %"
+        v3 = str(round(100 * self.pca.explained_variance_ratio_[z])) + " %"
         vs = [v1, v2, v3]
         axis = [f"PC_{i+1}" for i in dim]
-        axis = {k:v1+"_"+v2 for k, v1, v2 in zip(["x", "y", "z"], axis, vs)}
-
-
+        axis = {k: v1 + "_" + v2 for k, v1, v2 in zip(["x", "y", "z"], axis, vs)}
 
         if len(clusters):
             # str for better viz
-            if isinstance(clusters, pd.Series) : 
-                clusters= clusters.values
+            if isinstance(clusters, pd.Series):
+                clusters = clusters.values
             clusters = [str(i) for i in clusters]
-            fig = px.scatter_3d( x=X_[:, x], y=X_[:, y], z=X_[:, z], color=clusters, labels=axis)
+            fig = px.scatter_3d(
+                x=X_[:, x], y=X_[:, y], z=X_[:, z], color=clusters, labels=axis
+            )
         else:
-            fig = px.scatter_3d( x=X_[:, x], y=X_[:, y], z=X_[:, z], labels=axis)
-
-
+            fig = px.scatter_3d(x=X_[:, x], y=X_[:, y], z=X_[:, z], labels=axis)
 
         # marker size
-        fig.update_traces(marker=dict(size=3),           selector=dict(mode='markers'))
+        fig.update_traces(marker=dict(size=3), selector=dict(mode="markers"))
 
         fig.show()
-
-
 
     def factorial_planes(
         self,
@@ -402,4 +396,3 @@ class Pca:
                 figsize,
                 marker,
             )
-
