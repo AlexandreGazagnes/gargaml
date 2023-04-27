@@ -6,8 +6,6 @@ from gargaml import *
 
 
 def test_first_tour():
-
-
     from gargaml import Loads, EDA
 
     df = Loads.ames(X_y=False)
@@ -17,18 +15,15 @@ def test_first_tour():
     EDA.first_tour.describe(df)
 
 
-def test_nan() : 
-
-
-
+def test_nan():
     from gargaml import Loads, EDA
 
     df = Loads.ames(X_y=False)
 
     EDA.nan.viz(df)
     EDA.nan.rate(df)
-    EDA.nan.rate(df,threshold=0.3)
+    EDA.nan.rate(df, threshold=0.3)
 
 
-def test_study()  : 
+def test_study():
     pass

@@ -1,4 +1,4 @@
-# from agaml import pd
+import os, logging
 
 import pandas as pd
 from IPython.display import display
@@ -22,38 +22,34 @@ class FirstTour:
         for t in ["float", "int", "bool", "object", "datetime"]:
             tmp = data.select_dtypes(t).copy()
 
-            if tmp.shape[1]:
-                print()
-                display(f"---- {t[:3].upper()} ----")
+            # display(tmp)
+            if not tmp.shape[1]:
+                continue
 
-                cols = tmp.columns
-                types = tmp.dtypes.values
-                nan_count = tmp.isna().sum().values
-                nan_mean = tmp.isna().mean().values
-                uniq = tmp.nunique().values
-                uniq_p = (tmp.nunique().values / len(tmp)).round(2)
-                is_sku = tmp.nunique().values == len(tmp)
+            print()
+            display(f"---- {t[:3].upper()} ----")
 
-                dd = {
-                    "cols": cols,
-                    "types": types,
-                    "nan_sum": nan_count,
-                    "nan_mean": nan_mean.round(2),
-                    "uniq_sum": uniq,
-                    "uniq_rate": uniq_p,
-                    "is_sku": is_sku,
-                }
+            dd = {
+                "cols": tmp.columns,
+                "types": tmp.dtypes.values,
+                "nan_sum": tmp.isna().sum().values,
+                "nan_mean": tmp.isna().mean().round(2).values,
+                "uniq_sum": tmp.nunique().values,
+                "uniq_rate": (tmp.nunique().values / len(tmp)).round(2),
+                "is_sku": tmp.nunique().values == len(tmp),
+            }
 
-                for i in range(n_rand):
-                    dd[f"val_rand_{i}"] = data.sample(1).iloc[0]
-                    if t in [
-                        "float",
-                    ]:
-                        dd[f"val_rand_{i}"] = dd[f"val_rand_{i}"].round(4)
+            # for i in range(n_rand):
+            #     dd[f"val_rand_{i}"] = data.sample(1).iloc[0]
+            #     # if t in [
+            #     #     "float",
+            #     # ]:
+            #     #     dd[f"val_rand_{i}"] = dd[f"val_rand_{i}"].round(4)
 
-                    dd[f"val_rand_{i}"] = dd[f"val_rand_{i}"].values
+            #     dd[f"val_rand_{i}"] = dd[f"val_rand_{i}"].values
 
-                display(pd.DataFrame(dd))
+            # logging.warning(dd)
+            display(pd.DataFrame(dd))
 
         # return pd.DataFrame(dd)
 

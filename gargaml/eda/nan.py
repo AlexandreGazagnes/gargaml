@@ -20,7 +20,7 @@ class Nan:
     ):
         """filter cols by nan rate > threshold"""
 
-        tmp = df.isna().sum().sort_values(ascending=False)
+        tmp = df.isna().sum(axis=axis).sort_values(ascending=False)
         tmp = tmp[tmp >= threshold]
         return tmp.round(3)
 
@@ -45,7 +45,7 @@ class Nan:
     ):
         """give cols with Nan rate > threshold"""
 
-        tmp = cls.nan_rate(df, threshold=threshold)
+        tmp = Nan.nan_rate(df, threshold=threshold)
         if tmp:
             return tmp[tmp >= threshold].index.tolist()
 
@@ -61,16 +61,17 @@ class Nan:
 
         """give lines with Nan rate > threshold"""
 
-        tmp = cls.nan_rate(df, threshold=threshold, axis=1)
+        tmp = Nan.nan_rate(df, threshold=threshold, axis=1)
         if tmp:
             return tmp[tmp >= threshold].index.tolist()
 
         return []
 
     @classmethod
-    def duplicated(cls, df, subset=None) : 
+    def duplicated(cls, df, subset=None):
+        # TODO CODE THIS
 
-        if not subset :
+        if not subset:
             subset = []
 
         return df.duplicated().sum().sum()

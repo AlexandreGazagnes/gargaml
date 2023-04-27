@@ -82,7 +82,7 @@ class DataClass:
         drop_cols=None,
         test_size=0.33,
         val_size=0.00,
-        drop_target_nan = True,
+        drop_target_nan=True,
         shuffle=True,
     ):
         """
@@ -103,9 +103,7 @@ class DataClass:
 
         ############################
 
-
         # TO DOO DROP y Nan
-
 
         ############################
 
