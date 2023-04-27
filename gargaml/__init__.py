@@ -1,11 +1,17 @@
-from .imports import *
+import os, sys, logging
 
-from .build import Build
-from .data import Data
-from .eda import EDA
-from .dl import DL
-from .loads import Loads
-from .ml import ML
+from gargaml.imports import *
+
+from gargaml.build_ import Build
+from gargaml.data import Data
+from gargaml.eda import EDA
+from gargaml.dl import DL
+from gargaml.loads import Loads
+from gargaml.ml import ML
+from gargaml.walkthrough import Walkthrough
+
+
+# from gargaml.ml import ML
 
 # class SkRes(pd.DataFrame):
 #     """ """
@@ -24,3 +30,4 @@ class Gargaml:
     dl = DL
     loads = Loads
     ml = ML
+    walkthrough = Walkthrough

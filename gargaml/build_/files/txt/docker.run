@@ -1,0 +1,5 @@
+#! /bin/sh
+
+docker kill $(docker ps -aq) > /dev/null 2>&1   
+docker build -f ./Dockerfile -t local-docker:latest . &&  \
+docker run -p 8888:8888 -ti local-docker:latest /bin/bash

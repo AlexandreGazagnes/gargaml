@@ -3,7 +3,7 @@ import os, sys, random, logging
 from sklearn.datasets import *
 import pandas as pd
 
-# # import numpy as np
+import numpy as np
 import random
 
 
@@ -69,7 +69,7 @@ def _seattle(year="2016", *args, **kwargs):
 
 
 def _titanic(
-    X_y: bool,
+    X_y: bool = True,
     nan_rate: float = 0.1,
 ):
     """ """

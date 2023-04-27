@@ -1,4 +1,0 @@
-def blabla():
-    """ """
-
-    print("blabla")
