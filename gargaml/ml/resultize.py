@@ -98,9 +98,121 @@ def resultize(
     return res.round(2).head(10)
 
 
-# class Results:
-#     """class Results
-#     resultize : return an pd.DataFrame of fancy results"""
+class Results(pd.DataFrame):  #
+    """class Results
+    resultize : return an pd.DataFrame of fancy results"""
+
+    def __init__(
+        self,
+        name: str,
+        dest: str,
+        fn: str,
+        exp: str = None,
+        run: str = None,
+    ):
+        super().__init__()
+
+
+        self._name = name  
+        self._fn = fn
+        self._dest = dest
+
+        self._date = str(datetime.datetime.now())[:19]
+        self._run = run if run else secrets.token_hex(4)
+        self._exp = exp if exp else secrets.token_hex(4)
+
+    def append(
+        self,
+        grid: GridSearchCV,
+        top_only: bool = True,
+        verbose: int = 1,
+        token: str = None,
+        cell : str = None,
+        **kwargs: dict,
+    ):
+        """ """
+        if not isinstance(grid, GridSearchCV):
+            raise AttributeError("GridSearchCV")
+
+        token = token if not token else secrets.token_hex(4)
+        cell = cell if not cell else self.cell
+
+        # base res
+        res = pd.DataFrame(grid.cv_results_)
+        cols = [i for i in res.columns if "split" not in i]
+        res = res.loc[:, cols]
+
+        # update test/val
+        cols = [i.replace("test", "val") for i in res.columns]
+        res.columns = cols
+
+        # drop score time
+        cols = [
+            "mean_score_time",
+            "std_score_time",
+        ]  # "rank_val_score" #             "std_fit_time",
+
+        res.drop(columns=cols, inplace=True)
+
+        # do cast
+        for c in res.columns:  # [i for i in res.columns if "param" in i]
+            try:
+                res[c] = res[c].astype(float)
+            except:
+                res[c] = res[c].astype(str)
+                res[c] = res[c].replace({"nan": np.NaN})
+
+        # sort and round
+        res = res.round(4).sort_values("mean_val_score", ascending=False)
+
+        # meta data
+        res["grid"] = grid
+        res["best_estimator_"] = grid.best_estimator_
+        res["datetime"] = str(datetime.datetime.now())[:19]
+        res["token"] = token
+        res["cell"] = cell
+        res["model_id"] = [secrets.token_hex(4) for _ in res.cell.values]
+        for k, v in kwargs.items():
+            res[k] = v
+
+        # reorder cols
+        end_cols = [
+            "mean_val_score",
+            "std_val_score",
+            "mean_train_score",
+            "std_train_score",
+        ]
+        first_cols = [
+            i for i in res.columns if (i not in end_cols)
+        ]  # and (i not in universal_cols)
+        final_cols = first_cols + end_cols
+        res = res.loc[:, final_cols]
+
+        # update results global
+        if _RESULTS:
+            _res = res.copy().head(1) if top_only else res.copy()
+            RESULTS = pd.concat([RESULTS, _res], ignore_index=True)
+            RESULTS = RESULTS.sort_values("mean_val_score", ascending=False)
+
+        # verbose
+        if verbose >= 1:
+            display(res.round(2).head(10))
+        if verbose >= 2:
+            display(RESULTS.round(2).head(5))
+
+        return res.round(2).head(10)
+
+        def save_df(self):
+            """do save"""
+            pass
+
+        def save_models(self):
+            """ """
+
+        def strize(self):
+            """ """
+            pass
+
 
 #     @classmethod
 #     def grid(
