@@ -1,12 +1,15 @@
+
+
+
 # basics
 pandas 
 numpy 
-# openpyxl
-# lxml
+openpyxl
+lxml
 # mlflow
 # mlfow[extras]
 # dataprep
-# haversine
+haversine
 
 
 # Stats 

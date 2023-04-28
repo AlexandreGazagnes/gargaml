@@ -22,8 +22,8 @@ setup(
         "pandas",
         "numpy",
         # dataprep
-        # lxml
-        # openpyxl
+        "lxml",
+        "openpyxl",
         # lxml
         "scipy",
         "statsmodels",
