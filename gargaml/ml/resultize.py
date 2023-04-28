@@ -106,16 +106,18 @@ class Results(pd.DataFrame):  #
         self,
         name: str,
         dest: str,
-        fn: str,
+        fn: str = None,
         exp: str = None,
         run: str = None,
     ):
         super().__init__()
 
+        self._name = name
+        self._fn = fn if fn else secrets.token_hex(4)
+        self._dest = dest if dest.endswith("/") else dest + "/"
 
-        self._name = name  
-        self._fn = fn
-        self._dest = dest
+        if not os.path.isdir(f"./{dest}"):
+            os.mkdir(dest)
 
         self._date = str(datetime.datetime.now())[:19]
         self._run = run if run else secrets.token_hex(4)
@@ -127,15 +129,16 @@ class Results(pd.DataFrame):  #
         top_only: bool = True,
         verbose: int = 1,
         token: str = None,
-        cell : str = None,
+        cell: str = None,
         **kwargs: dict,
     ):
         """ """
+
         if not isinstance(grid, GridSearchCV):
             raise AttributeError("GridSearchCV")
 
         token = token if not token else secrets.token_hex(4)
-        cell = cell if not cell else self.cell
+        cell = cell if not cell else secrets.token_hex(4)
 
         # base res
         res = pd.DataFrame(grid.cv_results_)
@@ -189,29 +192,29 @@ class Results(pd.DataFrame):  #
         res = res.loc[:, final_cols]
 
         # update results global
-        if _RESULTS:
-            _res = res.copy().head(1) if top_only else res.copy()
-            RESULTS = pd.concat([RESULTS, _res], ignore_index=True)
-            RESULTS = RESULTS.sort_values("mean_val_score", ascending=False)
-
-        # verbose
-        if verbose >= 1:
-            display(res.round(2).head(10))
-        if verbose >= 2:
-            display(RESULTS.round(2).head(5))
+        _res = res.copy().head(1) if top_only else res.copy()
+        self = pd.concat([self, _res], ignore_index=True)
+        self = self.sort_values("mean_val_score", ascending=False)
 
         return res.round(2).head(10)
 
-        def save_df(self):
-            """do save"""
-            pass
+    def save_df(self):
+        """do save"""
 
-        def save_models(self):
-            """ """
+        fn = self._dest + "/" + self._name + self._fn + "_" + self._date[:10] + ".csv"
+        self.strize.to_csv(fn, index=False)
 
-        def strize(self):
-            """ """
-            pass
+    def save_models(self):
+        """ """
+
+        pass
+
+    @property
+    def strize(self):
+        """ """
+
+        _self = self.astype(str)
+        return _self
 
 
 #     @classmethod
@@ -317,6 +320,6 @@ class Results(pd.DataFrame):  #
 #         return _res
 
 
-class Results:
-    resultize = resultize
-    data = None
+# class Results:
+#     resultize = resultize
+#     data = None
