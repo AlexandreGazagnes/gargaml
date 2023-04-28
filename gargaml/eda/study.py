@@ -31,8 +31,69 @@ class Study:
     """corr : correlation"""
 
     @classmethod
-    def corr(cls, df, figsize=12):
-        corr = df.select_dtypes(include=np.number).corr()
+    def _prepare(
+        cls,
+        df: pd.DataFrame,
+        numeric_only: bool = True,
+        nan_threshold: float = 0.5,
+        force_nan_impute: bool = True,
+        scale: bool = False,
+        scaler: str = "minmax",
+        ignore_cols: list = None,
+    ):
+        """ " """
+
+        # copy
+        _df = df.copy() 
+
+        # ignore_cols
+        if ignore_cols :
+            cols = [i for i in ignore_cols if i in _df.columns] 
+            _df =_df.drop(columns=cols)
+
+        # nan_threshold
+        tmp = _df.isna().mean()
+        cols = [i for i in tmp[tmp >= nan_threshold].index if i in _df.columns]
+        _df = _df.drop(                    columns=cols)
+
+        # numeric_only
+        if numeric_only :
+            _df = _df.select_dtypes(include=np.number)
+
+        # force_nan_impute
+        if force_nan_impute:
+            _df = pd.DataFrame(KNNImputer().fit_transform(_df), columns=_df.columns)
+
+        # scale
+        if scale:
+            sca = MinMaxScaler() if "min" in scaler.lower() else StandardScaler()
+            _df = pd.DataFrame(sca.fit_transform(_df), columns=_df.columns)
+
+        return _df
+
+    @classmethod
+    def corr(
+        cls,
+        df: pd.DataFrame,
+        figsize: int = 12,
+        nan_threshold: float = 0.5,
+        force_nan_impute: bool = False,
+        scale: bool = False,
+        ignore_cols: list = None,
+    ):
+        """ """
+
+        _df = Study._prepare(
+            df,
+            numeric_only=True,
+            nan_threshold=nan_threshold,
+            force_nan_impute=force_nan_impute,
+            scale=scale,
+            scaler="minmax",
+            ignore_cols=ignore_cols,
+        )
+
+        corr = _df.select_dtypes(include=np.number).corr()
 
         fig, ax = plt.subplots(1, 1, figsize=(ceil(figsize * 1.5), figsize))
 
@@ -57,27 +118,24 @@ class Study:
     @classmethod
     def skew(
         cls,
-        df,
-        display_=True,
-        force_nan_impute=True,
-        nan_threhold=0.5,
-        scale=False, 
+        df: pd.DataFrame,
+        display_: bool = True,
+        force_nan_impute: bool = True,
+        nan_threshold: float = 0.5,
+        scale: bool = False,
+        ignore_cols: list = None,
     ):
         """compute skew for num cols and display log1p gain for each"""
 
-        _df = df.select_dtypes(include=np.number)
-
-        # errro r if 100% nan
-        tmp = df.isna().mean()
-        tmp = tmp[tmp >= nan_threhold]
-        _df = _df.drop(columns=tmp.index)
-
-        if force_nan_impute:
-            _df = pd.DataFrame(KNNImputer().fit_transform(_df), columns=_df.columns)
-
-
-        if scale : 
-            _df = pd.DataFrame(MinMaxScaler().fit_transform(_df), columns=_df.columns)
+        _df = Study._prepare(
+            df,
+            numeric_only=True,
+            nan_threshold=nan_threshold,
+            force_nan_impute=force_nan_impute,
+            scale=scale,
+            scaler="minmax",
+            ignore_cols=ignore_cols,
+        )
 
         cols = _df.columns
         raw_skew = [_df[c].skew() for c in cols]
@@ -131,39 +189,28 @@ class Study:
     @classmethod
     def outlier(
         cls,
-        df,
-        display_=True,
-        model="e",
-        force_nan_impute=True,
-        nan_threhold=0.5,
-        scale = False,
-        ignore_cols:list=None,
+        df: pd.DataFrame,
+        display_: bool = True,
+        model: str = "e",
+        force_nan_impute: bool = True,
+        nan_threshold: float = 0.5,
+        scale: bool = False,
+        ignore_cols: list = None,
     ):
         """apply outlier stat traeatment display desribe before / after return df with _outlier col"""
 
+
+        _df = Study._prepare(
+            df,
+            numeric_only=True,
+            nan_threshold=nan_threshold,
+            force_nan_impute=force_nan_impute,
+            scale=scale,
+            scaler="std",
+            ignore_cols=ignore_cols,
+        )
+
         assert model in ["e", "i", "k"]
-
-        if ignore_cols : 
-            raise NotImplementedError("ajouter des cols à mettre decolté via une liste (latitude, logitude)")
-
-
-        _df = df.select_dtypes(include=np.number)
-
-        # errro r if 100% nan
-        tmp = df.isna().mean()
-        tmp = tmp[tmp >= nan_threhold]
-        _df = _df.drop(columns=tmp.index)
-
-        if force_nan_impute : 
-
-            __df = pd.DataFrame(KNNImputer().fit_transform(_df), columns=_df.columns)
-        else : 
-            __df = _df.copy()
-
-        if scale : 
-            sca = StandardScaler()
-            __df = pd.DataFrame(sca.fit_transform(__df), columns=__df.columns)
-
 
         if model == "e":
             model = EllipticEnvelope
@@ -177,45 +224,45 @@ class Study:
         except:
             pass
 
-        ee = model.fit_predict(__df)
-        __df_e = __df.loc[~(ee == -1)]
+        ee = model.fit_predict(_df)
+        _df_e = _df.loc[~(ee == -1)]
 
-        s1, s2 = __df.shape[0], __df_e.shape[0]
+        s1, s2 = _df.shape[0], _df_e.shape[0]
         r = round((s1 - s2) / s1, 2)
 
         # display
         display(f"shape Original : {s1} shape_cleaned {s2} => loss {r}")
 
         display("--------- ORIGINAL ----------")
-        display(__df.describe().round(2))  # .iloc[1:]
+        display(_df.describe().round(2))  # .iloc[1:]
         print()
         display("--------- CLEANED ----------")
-        display(__df_e.describe().round(2))  # .iloc[1:]
+        display(_df_e.describe().round(2))  # .iloc[1:]
         print()
 
         # graphs
         if display_:
-            for c in __df.columns:
+            for c in _df.columns:
                 # subplots
                 fig = make_subplots(rows=1, cols=2)
 
                 # normal
-                x1 = __df.loc[:, c].values
+                x1 = _df.loc[:, c].values
                 fig.add_trace(go.Histogram(x=x1, name=f"normal"), row=1, col=1)
 
                 # log
-                x2 = __df_e.loc[:, c].values
+                x2 = _df_e.loc[:, c].values
                 fig.add_trace(go.Histogram(x=x2, name=f"cleaned"), row=1, col=2)
 
                 min_mean_max = [
-                    round(__df.loc[:, c].min(), 2),
-                    round(__df.loc[:, c].mean(), 2),
-                    round(__df.loc[:, c].max(), 2),
+                    round(_df.loc[:, c].min(), 2),
+                    round(_df.loc[:, c].mean(), 2),
+                    round(_df.loc[:, c].max(), 2),
                 ]
                 _min_mean_max = [
-                    round(__df_e.loc[:, c].min(), 2),
-                    round(__df_e.loc[:, c].mean(), 2),
-                    round(__df_e.loc[:, c].max(), 2),
+                    round(_df_e.loc[:, c].min(), 2),
+                    round(_df_e.loc[:, c].mean(), 2),
+                    round(_df_e.loc[:, c].max(), 2),
                 ]
                 # fig
                 fig.update_layout(
@@ -231,22 +278,25 @@ class Study:
         return _df
 
     @classmethod
-    def vif(cls, df, scale:bool=False, force_nan_impute:bool=True, nan_threhold:float=0.5):
-        
-        _df = df.select_dtypes(include=np.number)
-
-        # errro r if 100% nan
-        tmp = df.isna().mean()
-        tmp = tmp[tmp >= nan_threhold]
-        _df = _df.drop(columns=tmp.index)
-
-
-        if force_nan_impute:
-            _df = pd.DataFrame(KNNImputer().fit_transform(_df), columns=_df.columns)
-
-        if scale:
-            sca = StandardScaler()
-            _df = pd.DataFrame(sca.fit_transform(_df), columns=_df.columns)
+    def vif(
+        cls,
+        df: pd.DataFrame,
+        scale: bool = False,
+        force_nan_impute: bool = True,
+        nan_threshold: float = 0.5,
+        ignore_cols:list=None,
+    ):
+        """ """
+      
+        _df = Study._prepare(
+            df,
+            numeric_only=True,
+            nan_threshold=nan_threshold,
+            force_nan_impute=force_nan_impute,
+            scale=scale,
+            scaler="std",
+            ignore_cols=ignore_cols,
+        )
 
         vif_data = pd.DataFrame()
         vif_data["feature"] = _df.columns
@@ -257,3 +307,75 @@ class Study:
         ]
 
         return vif_data.sort_values("vif", ascending=False).round(2)
+
+    @classmethod
+    def pairplot(
+        cls,
+        df: pd.DataFrame,
+        nan_threshold: float = 0.5,
+        force_nan_impute: bool = False, 
+        scale: bool = False,
+        ignore_cols: list = None,
+    ):
+        """ """
+
+        # TODO code this
+
+        _df = Study._prepare(
+            df,
+            numeric_only=True,
+            nan_threshold=nan_threshold,
+            force_nan_impute=force_nan_impute,
+            scale=scale,
+            scaler="std",
+            ignore_cols=ignore_cols,
+        )
+
+        # update pair plot with clever filter to fast display
+
+        # # si en dessous de 100 => frac = 0,
+        # si # de 100 à 1000 = > frac 0.33
+        # si 1000 à 10 000 0.25
+        # si 10_000 à 100_000 > 0.15
+        # si > 100_000 > 0.1
+
+        # si 1 valeur => NON
+        # si booléen  ???
+
+    @classmethod
+    def stats(cls, df: pd.DataFrame, 
+        nan_threshold: float = 0.5,
+        force_nan_impute: bool = False, 
+        scale: bool = False,
+        ignore_cols: list = None,
+    ):
+        """ """
+
+        _df = Study._prepare(
+            df,
+            numeric_only=True,
+            nan_threshold=nan_threshold,
+            force_nan_impute=force_nan_impute,
+            scale=scale,
+            scaler="std",
+            ignore_cols=ignore_cols,
+        )
+
+        # perform all test ANOVA etc etc
+
+
+# class Test:
+#     """ """
+
+#     @classmethod
+#     def bla(cls, txt):
+#         """ """
+
+#         txt = Test._BLABLA(txt)
+#         print(f"bla dit {txt}")
+
+#     @classmethod
+#     def _BLABLA(cls, txt):
+
+#         txt = f"_BLABLA dit {txt}"
+#         return txt
