@@ -104,17 +104,14 @@ class Pca:
     def variance(self, display_=True):
         """ """
 
+        # TODO USE PLOTLY
 
-
-        # TODO USE PLOTLY 
-
-        # compute 
+        # compute
         scree = (self.pca.explained_variance_ratio_ * 100).round(2)
         scree_cum = scree.cumsum().round()
         x_list = range(1, self.n_components + 1)
 
-
-        # display 
+        # display
         if display_:
             plt.bar(x_list, scree)
             plt.plot(x_list, scree_cum, c="red", marker="o")
@@ -125,17 +122,17 @@ class Pca:
 
         return self._variance
 
-    def pcs(self, fmt:int=2, size=8, display_:bool=True):
+    def pcs(self, fmt: int = 2, size=8, display_: bool = True):
         """ """
-        
-        # TODO update with plotly 
-        # no attribute => Function 
-        # args, 
 
-        if display_ : 
-            figsize = [int(1.5 * size), size ]
+        # TODO update with plotly
+        # no attribute => Function
+        # args,
+
+        if display_:
+            figsize = [int(1.5 * size), size]
             fmt = f".{fmt}f"
-            fig, ax = plt.subplots(1,1, figsize=figsize)
+            fig, ax = plt.subplots(1, 1, figsize=figsize)
             ax = sns.heatmap(
                 self._pcs.T, vmin=-1, vmax=1, cmap="coolwarm", fmt=fmt, annot=True
             )
@@ -145,7 +142,7 @@ class Pca:
 
     def correlation_graph(
         self,
-        dim:list=[0,1],
+        dim: list = [0, 1],
     ):
         """Affiche le graphe des correlations
 
@@ -309,12 +306,12 @@ class Pca:
 
     def factorial_planes(
         self,
-        dim:list = [0,1],
+        dim: list = [0, 1],
         labels: str = None,
         clusters: str = None,
         alpha: float = 1,
-        scale : bool = False, 
-        scaler : str="min", 
+        scale: bool = False,
+        scaler: str = "min",
         figsize: list = [10, 8],
         marker: str = ".",
     ):
@@ -338,7 +335,7 @@ class Pca:
 
         # TODO USE PX
 
-        # TO DO IMPLEMENT over scaling for better vise 
+        # TO DO IMPLEMENT over scaling for better vise
 
         # Transforme self.X_proj en np.array
         X_ = np.array(self.X_proj)

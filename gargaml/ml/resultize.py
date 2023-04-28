@@ -12,7 +12,7 @@ RESULTS = pd.DataFrame()
 
 def resultize(
     grid: GridSearchCV,
-    top_only: bool = False,
+    top_only: bool = True,
     verbose: int = 1,
     **kwargs: dict,
 ):
@@ -72,8 +72,8 @@ def resultize(
 
     # reorder cols
     end_cols = [
-        "mean_test_score",
-        "std_test_score",
+        "mean_val_score",
+        "std_val_score",
         "mean_train_score",
         "std_train_score",
     ]
@@ -87,7 +87,7 @@ def resultize(
     if _RESULTS:
         _res = res.copy().head(1) if top_only else res.copy()
         RESULTS = pd.concat([RESULTS, _res], ignore_index=True)
-        RESULTS = RESULTS.sort_values("mean_test_score", ascending=False)
+        RESULTS = RESULTS.sort_values("mean_val_score", ascending=False)
 
     # verbose
     if verbose >= 1:
