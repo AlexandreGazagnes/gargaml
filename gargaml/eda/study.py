@@ -44,20 +44,20 @@ class Study:
         """ " """
 
         # copy
-        _df = df.copy() 
+        _df = df.copy()
 
         # ignore_cols
-        if ignore_cols :
-            cols = [i for i in ignore_cols if i in _df.columns] 
-            _df =_df.drop(columns=cols)
+        if ignore_cols:
+            cols = [i for i in ignore_cols if i in _df.columns]
+            _df = _df.drop(columns=cols)
 
         # nan_threshold
         tmp = _df.isna().mean()
         cols = [i for i in tmp[tmp >= nan_threshold].index if i in _df.columns]
-        _df = _df.drop(                    columns=cols)
+        _df = _df.drop(columns=cols)
 
         # numeric_only
-        if numeric_only :
+        if numeric_only:
             _df = _df.select_dtypes(include=np.number)
 
         # force_nan_impute
@@ -199,7 +199,6 @@ class Study:
     ):
         """apply outlier stat traeatment display desribe before / after return df with _outlier col"""
 
-
         _df = Study._prepare(
             df,
             numeric_only=True,
@@ -284,10 +283,10 @@ class Study:
         scale: bool = False,
         force_nan_impute: bool = True,
         nan_threshold: float = 0.5,
-        ignore_cols:list=None,
+        ignore_cols: list = None,
     ):
         """ """
-      
+
         _df = Study._prepare(
             df,
             numeric_only=True,
@@ -313,7 +312,7 @@ class Study:
         cls,
         df: pd.DataFrame,
         nan_threshold: float = 0.5,
-        force_nan_impute: bool = False, 
+        force_nan_impute: bool = False,
         scale: bool = False,
         ignore_cols: list = None,
     ):
@@ -343,9 +342,11 @@ class Study:
         # si booléen  ???
 
     @classmethod
-    def stats(cls, df: pd.DataFrame, 
+    def stats(
+        cls,
+        df: pd.DataFrame,
         nan_threshold: float = 0.5,
-        force_nan_impute: bool = False, 
+        force_nan_impute: bool = False,
         scale: bool = False,
         ignore_cols: list = None,
     ):

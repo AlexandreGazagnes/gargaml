@@ -100,32 +100,31 @@ def _house(*args, **kwargs):
     return pd.read_csv(url)
 
 
-
-def _wine(X_y:bool=True, nan_rate:float=0.1, *agrs, **kwargs): 
+def _wine(X_y: bool = True, nan_rate: float = 0.1, *agrs, **kwargs):
     """ """
-    
+
     url = "https://gist.githubusercontent.com/AlexandreGazagnes/e3e3a6ece82363fd1cafdd0f32563fce/raw/84c63cbee273574023b48bb750e91616c5253c74/wine-quality"
 
-
     return pd.read_csv(url)
-def _minst(X_y:bool=True, *args, **kwargs) : 
+
+
+def _minst(X_y: bool = True, *args, **kwargs):
     """ """
-    
+
     return None
 
 
-
-def _food(*agrs, **kwargs) : 
+def _food(*agrs, **kwargs):
     """ """
 
     logging.warning("Expected time : 30 sec to download")
-    
-    url  = "https://gist.githubusercontent.com/AlexandreGazagnes/2477fc721596f91a9fb9da9c544949f8/raw/a27b65b141896cca35f5ab6d75b5fb3dd1b39683/food"
+
+    url = "https://gist.githubusercontent.com/AlexandreGazagnes/2477fc721596f91a9fb9da9c544949f8/raw/a27b65b141896cca35f5ab6d75b5fb3dd1b39683/food"
 
     return pd.read_csv(url)
 
 
-def _fashion(*agrs, **kwargs) : 
+def _fashion(*agrs, **kwargs):
     """ """
-    
+
     return None

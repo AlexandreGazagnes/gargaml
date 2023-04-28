@@ -1,4 +1,15 @@
-from .loads import _ames, _iris, _seattle, _hr, _house, _titanic, _food, _fashion, _wine
+from .loads import (
+    _ames,
+    _iris,
+    _seattle,
+    _hr,
+    _house,
+    _titanic,
+    _food,
+    _fashion,
+    _wine,
+    _minst,
+)
 
 
 class Loads:
@@ -16,9 +27,21 @@ class Loads:
     wine = _wine
     fashion = _fashion
 
-    list_all = ["boston", "ames", "seattle", "hr", "titanic", "house", "mnist", "food", "wine", "iris", "fashion"]
+    list_all = [
+        "boston",
+        "ames",
+        "seattle",
+        "hr",
+        "titanic",
+        "house",
+        "mnist",
+        "food",
+        "wine",
+        "iris",
+        "fashion",
+    ]
     list_regression = []
     list_classification = []
     list_image = []
     list_nlp = []
-    list_exploration =[]
+    list_exploration = []
