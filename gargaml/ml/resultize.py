@@ -139,7 +139,7 @@ class Test(pd.DataFrame):  #
         self = df.copy()
 
 
-class Results(pd.DataFrame):  #
+class Results():  #
     """class Results
     resultize : return an pd.DataFrame of fancy results"""
 
@@ -151,7 +151,7 @@ class Results(pd.DataFrame):  #
         exp: str = "",
         run: str = "",
     ):
-        super().__init__()
+        # super().__init__()
 
         self._first = True
 
@@ -166,7 +166,10 @@ class Results(pd.DataFrame):  #
         self._run = run if run else secrets.token_hex(4)
         self._exp = exp if exp else secrets.token_hex(4)
 
-    def append(
+        self.res = pd.DataFrame()
+        self.RES = pd.DataFrame()
+
+    def update(
         self,
         grid: GridSearchCV,
         top_only: bool = True,
@@ -243,30 +246,35 @@ class Results(pd.DataFrame):  #
 
         if self._first : 
 
-            self.drop()
-            self.columns = _res.columns
-            self.index = _res.index
-            self.values = _res.values
+            # self.drop()
+            # self.columns = _res.columns
+            # self.index = _res.index
+            # self.values = _res.values
 
             # self  =_res.copy()
             # # self.columns = _res.columns
+            self.res = res
+            self.RES = _res
             self._first = False
 
         else : 
             # not working
-            self = pd.concat([self, _res], ignore_index=True)
+            self.res = res.copy()
+            self.RES = pd.concat([self.RES, _res], ignore_index=True)
 
             # # fucking uggly
             # for _, ser in _res.iterrows() : 
             #     self.loc[len(self)+1] = ser.values
             
 
-        # ???
-        self.astype(str).to_csv("./results/log.csv", index=False)
-        display(self)
+        # # ???
+        # self.astype(str).to_csv("./results/log.csv", index=False)
+        # display(self)
 
 
-        self.sort_values("mean_val_score", ascending=False, inplace=True)
+        self.res.sort_values("mean_val_score", ascending=False, inplace=True)
+        self.RES.sort_values("mean_val_score", ascending=False, inplace=True)
+
 
         if verbose:
             display(res.round(2).head(10))
@@ -276,8 +284,11 @@ class Results(pd.DataFrame):  #
     def save_df(self):
         """do save"""
 
-        fn = self._dest + "/" + self._name + self._fn + "_" + self._date[:10] + ".csv"
+
+        de, na, fn, da = self._dest, self._name, self._fn, self._date[:10]
+        fn = f"{de}/{na}_{fn}_{da}.csv"
         self.strize.to_csv(fn, index=False)
+
 
     def save_models(self):
         """ """
@@ -288,8 +299,15 @@ class Results(pd.DataFrame):  #
     def strize(self):
         """ """
 
-        _self = self.astype(str)
-        return _self
+        self.RES["run"] = self._run
+        self.RES["exp"] = self._exp
+        self.RES["date"] = self._date
+
+        # self._date = str(datetime.datetime.now())[:19]
+        # self._run = run if run else secrets.token_hex(4)
+        # self._exp = exp if exp else secrets.token_hex(4)
+
+        return self.RES.astype(str)
 
 
 #     @classmethod
