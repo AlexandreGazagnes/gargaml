@@ -131,11 +131,31 @@ def _fashion(*agrs, **kwargs):
 
 
 
-def _random(len_=10, cols=3, ) :
-    """ """ 
 
-    _df = pd.DataFrame()
-    for c in string.ascii_lowercase : 
-        _df[c] = np.random.random(size=1000)
+class Load:
+    """ """
 
-    return _df.iloc[:len_, :cols]
+    ames = _ames
+    boston = _ames
+    fashion = _fashion
+    food = _food
+    house = _house
+    hr = _hr
+    iris = _iris
+    minst = _minst
+    seattle = _seattle
+    titanic = _titanic
+    wine = _wine
+    list_all = sorted([
+        "boston",
+        "ames",
+        "seattle",
+        "hr",
+        "titanic",
+        "house",
+        "mnist",
+        "food",
+        "wine",
+        "iris",
+        "fashion",
+    ])
