@@ -105,10 +105,10 @@ class Results(pd.DataFrame):  #
     def __init__(
         self,
         name: str,
-        dest: str,
-        fn: str = None,
-        exp: str = None,
-        run: str = None,
+        dest: str = "./results/",
+        fn: str = "",
+        exp: str = "",
+        run: str = "",
     ):
         super().__init__()
 
@@ -127,9 +127,9 @@ class Results(pd.DataFrame):  #
         self,
         grid: GridSearchCV,
         top_only: bool = True,
-        verbose: int = 1,
-        token: str = None,
-        cell: str = None,
+        verbose: int = 0,
+        token: str = "",
+        cell: str = "",
         **kwargs: dict,
     ):
         """ """
@@ -174,7 +174,8 @@ class Results(pd.DataFrame):  #
         res["datetime"] = str(datetime.datetime.now())[:19]
         res["token"] = token
         res["cell"] = cell
-        res["model_id"] = [secrets.token_hex(4) for _ in res.cell.values]
+        k = secrets.token_hex(4)
+        res["model_id"] = k
         for k, v in kwargs.items():
             res[k] = v
 
@@ -195,6 +196,9 @@ class Results(pd.DataFrame):  #
         _res = res.copy().head(1) if top_only else res.copy()
         self = pd.concat([self, _res], ignore_index=True)
         self = self.sort_values("mean_val_score", ascending=False)
+
+        if verbose:
+            display(res.round(2).head(10))
 
         return res.round(2).head(10)
 
