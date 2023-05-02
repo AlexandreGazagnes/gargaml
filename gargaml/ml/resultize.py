@@ -98,6 +98,47 @@ def resultize(
     return res.round(2).head(10)
 
 
+
+class Test(pd.DataFrame):  #
+    """class Results
+    resultize : return an pd.DataFrame of fancy results"""
+
+    def __init__(
+        self,
+        name: str,
+        dest: str = "./results/",
+        fn: str = "",
+        exp: str = "",
+        run: str = "",
+        columns :list=None, 
+        index :list=None, 
+        values : np.ndarray=None
+    ):
+        
+        if not (columns and index and values) : 
+            super().__init__()
+
+        self._first = True
+
+        self._name = name
+        self._fn = fn if fn else secrets.token_hex(4)
+        self._dest = dest if dest.endswith("/") else dest + "/"
+
+        if not os.path.isdir(f"./{dest}"):
+            os.mkdir(dest)
+
+        self._date = str(datetime.datetime.now())[:19]
+        self._run = run if run else secrets.token_hex(4)
+        self._exp = exp if exp else secrets.token_hex(4)
+
+
+    def bla(self) : 
+        val = {"a" : range(10), "b" : range(10)}
+        df = pd.DataFrame(val)
+
+        self = df.copy()
+
+
 class Results(pd.DataFrame):  #
     """class Results
     resultize : return an pd.DataFrame of fancy results"""
@@ -111,6 +152,8 @@ class Results(pd.DataFrame):  #
         run: str = "",
     ):
         super().__init__()
+
+        self._first = True
 
         self._name = name
         self._fn = fn if fn else secrets.token_hex(4)
@@ -192,10 +235,38 @@ class Results(pd.DataFrame):  #
         final_cols = first_cols + end_cols
         res = res.loc[:, final_cols]
 
+
+
+
         # update results global
         _res = res.copy().head(1) if top_only else res.copy()
-        self = pd.concat([self, _res], ignore_index=True)
-        self = self.sort_values("mean_val_score", ascending=False)
+
+        if self._first : 
+
+            self.drop()
+            self.columns = _res.columns
+            self.index = _res.index
+            self.values = _res.values
+
+            # self  =_res.copy()
+            # # self.columns = _res.columns
+            self._first = False
+
+        else : 
+            # not working
+            self = pd.concat([self, _res], ignore_index=True)
+
+            # # fucking uggly
+            # for _, ser in _res.iterrows() : 
+            #     self.loc[len(self)+1] = ser.values
+            
+
+        # ???
+        self.astype(str).to_csv("./results/log.csv", index=False)
+        display(self)
+
+
+        self.sort_values("mean_val_score", ascending=False, inplace=True)
 
         if verbose:
             display(res.round(2).head(10))

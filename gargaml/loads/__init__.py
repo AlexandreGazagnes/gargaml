@@ -9,6 +9,7 @@ from .loads import (
     _fashion,
     _wine,
     _minst,
+    _random
 )
 
 
@@ -26,6 +27,7 @@ class Loads:
     food = _food
     wine = _wine
     fashion = _fashion
+    random = _random
 
     list_all = [
         "boston",
@@ -45,3 +47,5 @@ class Loads:
     list_image = []
     list_nlp = []
     list_exploration = []
+
+    list_random = []

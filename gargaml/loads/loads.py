@@ -1,5 +1,5 @@
 import os, sys, random, logging
-
+import string, math
 from sklearn.datasets import *
 import pandas as pd
 
@@ -128,3 +128,14 @@ def _fashion(*agrs, **kwargs):
     """ """
 
     return None
+
+
+
+def _random(len_=10, cols=3, ) :
+    """ """ 
+
+    _df = pd.DataFrame()
+    for c in string.ascii_lowercase : 
+        _df[c] = np.random.random(size=1000)
+
+    return _df.iloc[:len_, :cols]
