@@ -1,7 +1,7 @@
 ############
 ############
 
-#DEPRECATED => plz watch out gargaml.data module 
+# DEPRECATED => plz watch out gargaml.data module
 
 ############
 ############

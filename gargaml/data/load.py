@@ -130,8 +130,6 @@ def _fashion(*agrs, **kwargs):
     return None
 
 
-
-
 class Load:
     """ """
 
@@ -146,16 +144,18 @@ class Load:
     seattle = _seattle
     titanic = _titanic
     wine = _wine
-    list_all = sorted([
-        "boston",
-        "ames",
-        "seattle",
-        "hr",
-        "titanic",
-        "house",
-        "mnist",
-        "food",
-        "wine",
-        "iris",
-        "fashion",
-    ])
+    list_all = sorted(
+        [
+            "boston",
+            "ames",
+            "seattle",
+            "hr",
+            "titanic",
+            "house",
+            "mnist",
+            "food",
+            "wine",
+            "iris",
+            "fashion",
+        ]
+    )
