@@ -6,6 +6,8 @@ import numpy as np
 
 from sklearn.model_selection import *
 
+import pickle
+
 results = pd.DataFrame()
 RESULTS = pd.DataFrame()
 
@@ -98,7 +100,6 @@ def resultize(
     return res.round(2).head(10)
 
 
-
 class Test(pd.DataFrame):  #
     """class Results
     resultize : return an pd.DataFrame of fancy results"""
@@ -110,12 +111,11 @@ class Test(pd.DataFrame):  #
         fn: str = "",
         exp: str = "",
         run: str = "",
-        columns :list=None, 
-        index :list=None, 
-        values : np.ndarray=None
+        columns: list = None,
+        index: list = None,
+        values: np.ndarray = None,
     ):
-        
-        if not (columns and index and values) : 
+        if not (columns and index and values):
             super().__init__()
 
         self._first = True
@@ -131,15 +131,14 @@ class Test(pd.DataFrame):  #
         self._run = run if run else secrets.token_hex(4)
         self._exp = exp if exp else secrets.token_hex(4)
 
-
-    def bla(self) : 
-        val = {"a" : range(10), "b" : range(10)}
+    def bla(self):
+        val = {"a": range(10), "b": range(10)}
         df = pd.DataFrame(val)
 
         self = df.copy()
 
 
-class Results():  #
+class Results:  #
     """class Results
     resultize : return an pd.DataFrame of fancy results"""
 
@@ -238,14 +237,10 @@ class Results():  #
         final_cols = first_cols + end_cols
         res = res.loc[:, final_cols]
 
-
-
-
         # update results global
         _res = res.copy().head(1) if top_only else res.copy()
 
-        if self._first : 
-
+        if self._first:
             # self.drop()
             # self.columns = _res.columns
             # self.index = _res.index
@@ -257,47 +252,60 @@ class Results():  #
             self.RES = _res
             self._first = False
 
-        else : 
+        else:
             # not working
             self.res = res.copy()
             self.RES = pd.concat([self.RES, _res], ignore_index=True)
 
             # # fucking uggly
-            # for _, ser in _res.iterrows() : 
+            # for _, ser in _res.iterrows() :
             #     self.loc[len(self)+1] = ser.values
-            
 
         # # ???
         # self.astype(str).to_csv("./results/log.csv", index=False)
         # display(self)
 
-
         self.res.sort_values("mean_val_score", ascending=False, inplace=True)
         self.RES.sort_values("mean_val_score", ascending=False, inplace=True)
-
 
         if verbose:
             display(res.round(2).head(10))
 
         return res.round(2).head(10)
 
-    def save_df(self):
+
+    def save(self, dest_csv:str = "./results/", dest_models:str="./models/", csv:bool=True, models:bool=True, head:int=10,): 
+        """ """
+
+        if csv : 
+            self._save_df(dest_csv=dest_csv, head=head)  
+        if models : 
+            self._save_models(dest_models=dest_models, head=head)
+
+    def save_df(self, dest_csv= "./results/", head=10):
         """do save"""
 
-
-        de, na, fn, da = self._dest, self._name, self._fn, self._date[:10]
+        de, na, fn, da = dest_csv, self._name, self._fn, self._date[:10]
         fn = f"{de}/{na}_{fn}_{da}.csv"
         self.strize.to_csv(fn, index=False)
 
-
-    def save_models(self):
+    def save_models(self, dest_models="./models/", head=10):
         """ """
 
-        pass
+        de, na, fn, da = dest_models, self._name, self._fn, self._date[:10]
+        fn = f"{de}/{na}_{fn}_{da}__model_"
+        gb = results.RES.groupby("model_id").agg({"best_estimator_":"first", "mean_val_score" : "max"}).sort_values("mean_val_score", ascending=False).head(head)
 
-    @property
-    def strize(self):
+        for k, model in gb.iterrows() : 
+            print(k)
+            # display(model)
+            with open(f"{fn}{k}.csv", "wb") as f : 
+                pickle.dump(model["best_estimator_"], f])
+
+    def strize(self, head=10, key="mean_val_score"):
         """ """
+
+        self.RES = self.RES.sort_values(key, ascending=False).head(head)
 
         self.RES["run"] = self._run
         self.RES["exp"] = self._exp
