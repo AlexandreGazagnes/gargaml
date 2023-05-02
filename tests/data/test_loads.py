@@ -5,12 +5,12 @@ import pytest
 # import numpy as np
 # import random
 
-from gargaml.loads import Loads
+from gargaml.data import Load
 
 
 def test_boston():
-    X, y = Loads.ames()
-    df = Loads.ames(X_y=False)
+    X, y = Load.ames()
+    df = Load.ames(X_y=False)
     # with pytest.raises(ValueError):
     #     X, y = _boston(X_y=False)
 
@@ -24,8 +24,8 @@ def test_boston():
 
 
 def test_iris():
-    X, y = Loads.iris()
-    df = Loads.iris(X_y=False)
+    X, y = Load.iris()
+    df = Load.iris(X_y=False)
     # with pytest.raises(ValueError):
     #     X, y = _iris(X_y=False)
 
@@ -39,18 +39,18 @@ def test_iris():
 
 
 def test_seattle():
-    df = Loads.seattle()
+    df = Load.seattle()
 
 
 def test_hr():
-    df = Loads.hr()
+    df = Load.hr()
 
 
 def test_titanic():
-    df = Loads.titanic()
+    df = Load.titanic()
 
 
 # def tests():
 
-#     _ = Loads.boston()
-#     _ = Loads.iris()
+#     _ = Load.boston()
+#     _ = Load.iris()
