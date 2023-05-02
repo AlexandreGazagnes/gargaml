@@ -40,6 +40,7 @@ setup(
         "ipykernel",
         # "session-info",
         "pandarallel",
+        "joblib",
         #
         "scikit-learn",
         "imbalanced-learn",

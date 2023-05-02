@@ -37,6 +37,7 @@ ipywidgets
 # session-info
 # pandarallel
 # rich
+joblib
 
 
 # Build
