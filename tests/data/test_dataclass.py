@@ -57,7 +57,7 @@ def test_X_y():
 
 def test_X_y_train():
     """ """
-    
+
     df = Load.ames(X_y=False)
     data = DataClass(df, y_name="target")
 
@@ -68,7 +68,7 @@ def test_X_y_train():
 
 
 def test_X_y_test():
-    ''' '''
+    """ """
 
     df = Load.ames(X_y=False)
     data = DataClass(df, y_name="target")
