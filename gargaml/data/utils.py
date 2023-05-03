@@ -3,7 +3,8 @@ import pandas as pd
 
 import numpy as np
 
-def _do_sep_target(df, sep_target, target) : 
+
+def _do_sep_target(df, sep_target, target):
     """ """
 
     if not sep_target:

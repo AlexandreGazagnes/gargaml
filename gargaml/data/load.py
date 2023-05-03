@@ -32,8 +32,7 @@ def __sk_load(name: str, sep_target: bool = False, nan_rate: float = 0.05):
 
     df = _add_nan(df, nan_rate=nan_rate)
 
-
-    return  _do_sep_target(df, sep_target, "target")
+    return _do_sep_target(df, sep_target, "target")
 
 
 def _ames(sep_target: bool = False, nan_rate: float = 0.0):
@@ -78,9 +77,7 @@ def _seattle(
     if preclean:
         df = _preclean_seattle(df)
 
-
-
-    return  _do_sep_target(df, sep_target, "siteenergyuse_kbtu")
+    return _do_sep_target(df, sep_target, "siteenergyuse_kbtu")
 
 
 def _titanic(
@@ -96,9 +93,6 @@ def _titanic(
     df.columns = map(_clean_columns, df.columns)
 
     return _do_sep_target(df, sep_target, "survived")
-
-
-
 
 
 def _hr(sep_target: bool = False, nan_rate: float = 0.1):
@@ -130,7 +124,7 @@ def _house(sep_target: bool = False, nan_rate: float = 0.1):
 
     df.columns = map(_clean_columns, df.columns)
 
-    return  _do_sep_target(df, sep_target, "saleprice")
+    return _do_sep_target(df, sep_target, "saleprice")
 
 
 def _wine(
@@ -148,10 +142,7 @@ def _wine(
 
     df.columns = map(_clean_columns, df.columns)
 
-    return  _do_sep_target(df, sep_target, "quality")
-
-
-
+    return _do_sep_target(df, sep_target, "quality")
 
 
 def _food(

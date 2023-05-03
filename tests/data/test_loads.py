@@ -57,7 +57,7 @@ class TestSepTarget:
 
     @pytest.mark.parametrize("funct", list_all)
     def test_df(self, funct):
-        """test df X +y """
+        """test df X +y"""
 
         # df
         df = funct(sep_target=False)
