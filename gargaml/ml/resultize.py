@@ -200,13 +200,12 @@ class Results:  #
         # validation
         if not isinstance(grid, GridSearchCV):
             raise AttributeError("GridSearchCV")
-        
-        try : 
+
+        try:
             grid.cv_results_
-        except Exception as e :
+        except Exception as e:
             logging.error(f"Grid not fitted ! ")
-            raise e 
-            
+            raise e
 
         # token and cell
         token = token if not token else secrets.token_hex(4)
@@ -314,7 +313,9 @@ class Results:  #
 
         dest_results = dest_results if dest_results else self._dest_results
         dest_models = dest_models if dest_models else self._dest_models
-        dest_results = dest_results if dest_results.endswith("/") else dest_results + "/"
+        dest_results = (
+            dest_results if dest_results.endswith("/") else dest_results + "/"
+        )
         dest_models = dest_models if dest_models.endswith("/") else dest_models + "/"
 
         if csv:
@@ -325,17 +326,14 @@ class Results:  #
     def __save_df(self, dest_results="./results/", head=10, key="mean_val_score"):
         """do save df results"""
 
-
         de, na, fn, da = dest_results, self._name, self._fn, self.__date[:10]
         file_ = f"{de}{na}_{fn}_{da}.csv"
 
         # logging.warning(file_)
         self._strize(head=head, key=key).to_csv(file_, index=False)
 
-
     def __save_models(self, dest_models="./models/", head=10):
         """do save pk models"""
-
 
         de, na, fn, da = dest_models, self._name, self._fn, self.__date[:10]
         file_ = f"{de}{na}_{fn}_{da}__model_"
