@@ -273,37 +273,57 @@ class Results:  #
 
         return res.round(2).head(10)
 
-
-    def save(self, dest_csv:str = "./results/", dest_models:str="./models/", csv:bool=True, models:bool=True, head:int=10,): 
+    def save(
+        self,
+        dest_csv: str = "./results/",
+        dest_models: str = "./models/",
+        csv: bool = True,
+        models: bool = True,
+        head: int = 10,
+        key="mean_val_score,",
+    ):
         """ """
 
-        if csv : 
-            self._save_df(dest_csv=dest_csv, head=head)  
-        if models : 
+        if csv:
+            self._save_df(dest_csv=dest_csv, head=head)
+        if models:
             self._save_models(dest_models=dest_models, head=head)
 
-    def save_df(self, dest_csv= "./results/", head=10):
-        """do save"""
+    def _save_df(self, dest_csv="./results/", head=10, key="mean_val_score"):
+        """do save df results"""
+
+        dest_csv = dest_csv if dest_csv.endswith("/") else dest_csv+"/"
 
         de, na, fn, da = dest_csv, self._name, self._fn, self._date[:10]
-        fn = f"{de}/{na}_{fn}_{da}.csv"
-        self.strize.to_csv(fn, index=False)
+        file_ = f"{de}{na}_{fn}_{da}.csv"
 
-    def save_models(self, dest_models="./models/", head=10):
-        """ """
+        logging.warning(file_)
+        self._strize(head=head, key=key).to_csv(file_, index=False)
+
+    def _save_models(self, dest_models="./models/", head=10):
+        """do save pk models """
+
+        dest_models = dest_models if dest_models.endswith("/") else dest_models+"/"
 
         de, na, fn, da = dest_models, self._name, self._fn, self._date[:10]
-        fn = f"{de}/{na}_{fn}_{da}__model_"
-        gb = results.RES.groupby("model_id").agg({"best_estimator_":"first", "mean_val_score" : "max"}).sort_values("mean_val_score", ascending=False).head(head)
+        file_ = f"{de}{na}_{fn}_{da}__model_"
+        gb = (
+            self.RES.groupby("model_id")
+            .agg({"best_estimator_": "first", "mean_val_score": "max"})
+            .sort_values("mean_val_score", ascending=False)
+            .head(head)
+        )
 
-        for k, model in gb.iterrows() : 
+        for k, model in gb.iterrows():
             print(k)
-            # display(model)
-            with open(f"{fn}{k}.csv", "wb") as f : 
-                pickle.dump(model["best_estimator_"], f])
+            logging.warning(file_)
 
-    def strize(self, head=10, key="mean_val_score"):
-        """ """
+            # display(model)
+            with open(f"{file_}{k}.pk" ,"wb") as f:
+                pickle.dump(model["best_estimator_"], f)
+
+    def _strize(self, head=10, key="mean_val_score"):
+        """sort, head and str a result df """
 
         self.RES = self.RES.sort_values(key, ascending=False).head(head)
 
@@ -317,6 +337,20 @@ class Results:  #
 
         return self.RES.astype(str)
 
+    @classmethod
+    def load_csv(fn) :
+        """ """ 
+        
+        return pd.read_csv(fn)
+    
+
+    @classmethod
+    def load_model(fn) : 
+        """ """
+
+        with open(fn, "rb") as f : 
+            return pickle.load(f)
+        
 
 #     @classmethod
 #     def grid(
