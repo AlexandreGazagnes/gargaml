@@ -268,7 +268,7 @@ class Results:  #
         # update results global
         _res = res.copy().head(1) if top_only else res.copy()
 
-        if self._first:
+        if self.__first:
             # self.drop()
             # self.columns = _res.columns
             # self.index = _res.index
@@ -326,7 +326,7 @@ class Results:  #
         """do save df results"""
 
 
-        de, na, fn, da = dest_results, self._name, self._fn, self._date[:10]
+        de, na, fn, da = dest_results, self._name, self._fn, self.__date[:10]
         file_ = f"{de}{na}_{fn}_{da}.csv"
 
         # logging.warning(file_)
@@ -337,7 +337,7 @@ class Results:  #
         """do save pk models"""
 
 
-        de, na, fn, da = dest_models, self._name, self._fn, self._date[:10]
+        de, na, fn, da = dest_models, self._name, self._fn, self.__date[:10]
         file_ = f"{de}{na}_{fn}_{da}__model_"
         gb = (
             self.RES.groupby("model_id")
@@ -363,7 +363,7 @@ class Results:  #
         self.RES["exp"] = self._exp
         self.RES["date"] = self.__date
 
-        # self._date = str(datetime.datetime.now())[:19]
+        # self.__date = str(datetime.datetime.now())[:19]
         # self._run = run if run else secrets.token_hex(4)
         # self._exp = exp if exp else secrets.token_hex(4)
 
