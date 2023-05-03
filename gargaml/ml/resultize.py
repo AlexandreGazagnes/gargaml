@@ -107,7 +107,8 @@ class Test(pd.DataFrame):  #
     def __init__(
         self,
         name: str,
-        dest: str = "./results/",
+        dest_results: str = "./results/",
+        dest_models: str = "./models/",
         fn: str = "",
         exp: str = "",
         run: str = "",
@@ -118,24 +119,32 @@ class Test(pd.DataFrame):  #
         if not (columns and index and values):
             super().__init__()
 
-        self._first = True
-
+        # agrs
         self._name = name
         self._fn = fn if fn else secrets.token_hex(4)
-        self._dest = dest if dest.endswith("/") else dest + "/"
-
-        if not os.path.isdir(f"./{dest}"):
-            os.mkdir(dest)
-
-        self._date = str(datetime.datetime.now())[:19]
+        self._dest_results = (
+            dest_results if dest_results.endswith("/") else dest_results + "/"
+        )
+        self._dest_models = (
+            dest_models if dest_models.endswith("/") else dest_models + "/"
+        )
         self._run = run if run else secrets.token_hex(4)
         self._exp = exp if exp else secrets.token_hex(4)
 
-    def bla(self):
-        val = {"a": range(10), "b": range(10)}
-        df = pd.DataFrame(val)
+        # mkdir
+        for fold in [dest_models, dest_results]:
+            if not os.path.isdir(fold):
+                os.mkdir(fold)
 
-        self = df.copy()
+        # true
+        self.__first = True
+        self.__date = str(datetime.datetime.now())[:19]
+
+    # def bla(self):
+    #     val = {"a": range(10), "b": range(10)}
+    #     df = pd.DataFrame(val)
+
+    #     self = df.copy()
 
 
 class Results:  #
@@ -145,26 +154,35 @@ class Results:  #
     def __init__(
         self,
         name: str,
-        dest: str = "./results/",
+        dest_results: str = "./results/",
+        dest_models: str = "./models/",
         fn: str = "",
         exp: str = "",
         run: str = "",
+        columns: list = None,
+        index: list = None,
+        values: np.ndarray = None,
     ):
-        # super().__init__()
-
-        self._first = True
-
+        # agrs
         self._name = name
         self._fn = fn if fn else secrets.token_hex(4)
-        self._dest = dest if dest.endswith("/") else dest + "/"
-
-        if not os.path.isdir(f"./{dest}"):
-            os.mkdir(dest)
-
-        self._date = str(datetime.datetime.now())[:19]
+        self._dest_results = (
+            dest_results if dest_results.endswith("/") else dest_results + "/"
+        )
+        self._dest_models = (
+            dest_models if dest_models.endswith("/") else dest_models + "/"
+        )
         self._run = run if run else secrets.token_hex(4)
         self._exp = exp if exp else secrets.token_hex(4)
 
+        # mkdir
+        for fold in [dest_models, dest_results]:
+            if not os.path.isdir(fold):
+                os.mkdir(fold)
+
+        # true
+        self.__first = True
+        self.__date = str(datetime.datetime.now())[:19]
         self.res = pd.DataFrame()
         self.RES = pd.DataFrame()
 
@@ -179,9 +197,18 @@ class Results:  #
     ):
         """ """
 
+        # validation
         if not isinstance(grid, GridSearchCV):
             raise AttributeError("GridSearchCV")
+        
+        try : 
+            grid.cv_results_
+        except Exception as e :
+            logging.error(f"Grid not fitted ! ")
+            raise e 
+            
 
+        # token and cell
         token = token if not token else secrets.token_hex(4)
         cell = cell if not cell else secrets.token_hex(4)
 
@@ -195,14 +222,15 @@ class Results:  #
         res.columns = cols
 
         # drop score time
-        cols = [
+
+        drop_cols = [
             "mean_score_time",
             "std_score_time",
-        ]  # "rank_val_score" #             "std_fit_time",
+        ]  # "rank_val_score", "std_fit_time",
 
-        res.drop(columns=cols, inplace=True)
+        res.drop(columns=drop_cols, inplace=True)
 
-        # do cast
+        # do REcast
         for c in res.columns:  # [i for i in res.columns if "param" in i]
             try:
                 res[c] = res[c].astype(float)
@@ -250,7 +278,7 @@ class Results:  #
             # # self.columns = _res.columns
             self.res = res
             self.RES = _res
-            self._first = False
+            self.__first = False
 
         else:
             # not working
@@ -275,8 +303,8 @@ class Results:  #
 
     def save(
         self,
-        dest_csv: str = "./results/",
-        dest_models: str = "./models/",
+        dest_results: str = None,
+        dest_models: str = None,
         csv: bool = True,
         models: bool = True,
         head: int = 10,
@@ -284,26 +312,30 @@ class Results:  #
     ):
         """ """
 
-        if csv:
-            self._save_df(dest_csv=dest_csv, head=head)
-        if models:
-            self._save_models(dest_models=dest_models, head=head)
+        dest_results = dest_results if dest_results else self._dest_results
+        dest_models = dest_models if dest_models else self._dest_models
+        dest_results = dest_results if dest_results.endswith("/") else dest_results + "/"
+        dest_models = dest_models if dest_models.endswith("/") else dest_models + "/"
 
-    def _save_df(self, dest_csv="./results/", head=10, key="mean_val_score"):
+        if csv:
+            self.__save_df(dest_results=dest_results, head=head)
+        if models:
+            self.__save_models(dest_models=dest_models, head=head)
+
+    def __save_df(self, dest_results="./results/", head=10, key="mean_val_score"):
         """do save df results"""
 
-        dest_csv = dest_csv if dest_csv.endswith("/") else dest_csv+"/"
 
-        de, na, fn, da = dest_csv, self._name, self._fn, self._date[:10]
+        de, na, fn, da = dest_results, self._name, self._fn, self._date[:10]
         file_ = f"{de}{na}_{fn}_{da}.csv"
 
-        logging.warning(file_)
+        # logging.warning(file_)
         self._strize(head=head, key=key).to_csv(file_, index=False)
 
-    def _save_models(self, dest_models="./models/", head=10):
-        """do save pk models """
 
-        dest_models = dest_models if dest_models.endswith("/") else dest_models+"/"
+    def __save_models(self, dest_models="./models/", head=10):
+        """do save pk models"""
+
 
         de, na, fn, da = dest_models, self._name, self._fn, self._date[:10]
         file_ = f"{de}{na}_{fn}_{da}__model_"
@@ -315,21 +347,21 @@ class Results:  #
         )
 
         for k, model in gb.iterrows():
-            print(k)
-            logging.warning(file_)
+            # print(k)
+            # logging.warning(file_)
 
             # display(model)
-            with open(f"{file_}{k}.pk" ,"wb") as f:
+            with open(f"{file_}{k}.pk", "wb") as f:
                 pickle.dump(model["best_estimator_"], f)
 
     def _strize(self, head=10, key="mean_val_score"):
-        """sort, head and str a result df """
+        """sort, head and str a result df"""
 
         self.RES = self.RES.sort_values(key, ascending=False).head(head)
 
         self.RES["run"] = self._run
         self.RES["exp"] = self._exp
-        self.RES["date"] = self._date
+        self.RES["date"] = self.__date
 
         # self._date = str(datetime.datetime.now())[:19]
         # self._run = run if run else secrets.token_hex(4)
@@ -338,19 +370,18 @@ class Results:  #
         return self.RES.astype(str)
 
     @classmethod
-    def load_csv(fn) :
-        """ """ 
-        
-        return pd.read_csv(fn)
-    
-
-    @classmethod
-    def load_model(fn) : 
+    def load_csv(fn):
         """ """
 
-        with open(fn, "rb") as f : 
+        return pd.read_csv(fn)
+
+    @classmethod
+    def load_model(fn):
+        """ """
+
+        with open(fn, "rb") as f:
             return pickle.load(f)
-        
+
 
 #     @classmethod
 #     def grid(
