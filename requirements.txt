@@ -1,6 +1,3 @@
-
-
-
 # basics
 pandas 
 numpy 
@@ -35,7 +32,7 @@ jupytext
 ipykernel
 ipywidgets
 # session-info
-# pandarallel
+pandarallel
 # rich
 joblib
 
@@ -77,6 +74,8 @@ pylint
 black
 black[jupyter]
 mypy
+coverage
+pyflakes
 
 
 # Web
@@ -110,3 +109,7 @@ kaggle
 # # Image
 # Pillow
 # opencv-python
+
+
+# aws
+# gcp

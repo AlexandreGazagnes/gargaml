@@ -79,8 +79,9 @@ setup(
         "black",
         "mypy",
         "coverage",
+        "pyflakes",
     ],
-    keywords=["python", "machine", "learning", "data",  "analysis", "EDA", "ML"],
+    keywords=["python", "machine", "learning", "data", "analysis", "EDA", "ML"],
     classifiers=[
         "Programming Language :: Python :: 3",
     ],
