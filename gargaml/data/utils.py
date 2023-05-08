@@ -61,7 +61,7 @@ def _preclean_seattle(df):
 
     # fix floor building
     df.numberofbuildings = df.numberofbuildings.fillna(1).astype(int).replace({0: 1})
-    df.numberoffloors = df.numberoffloors.fillna(1).astype(int).replace({0: 1})
+    df.numberoffloors = df.numberoffloors.fillna(0).astype(int) + 1
 
     # bool parking as nrj, stema elec etc
     df.propertygfaparking = df.propertygfaparking.apply(lambda i: i > 0).astype(int)

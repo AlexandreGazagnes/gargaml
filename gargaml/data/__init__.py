@@ -4,12 +4,12 @@ from .load import Load
 
 
 class Data:
-    """
+    """Data module which porvides tools to use easly data : 
     dataclass : ML sp"cial dataclass
-     load : load fuctions from internet shuch as titanic iris ...
-      make basic random df creation baed on distribution suhc as uniform lognormal...
+    load : load fuctions from internet shuch as titanic iris ...
+    make basic random df creation baed on distribution suhc as uniform lognormal...
     """
 
-    dataclass = DataClass
-    load = Load
-    make = Make
+    DataClass = DataClass
+    Load = Load
+    Make = Make
