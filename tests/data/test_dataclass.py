@@ -4,6 +4,15 @@ from gargaml.data import Load
 from gargaml.data import DataClass
 
 
+class TestInit:
+    """ """
+
+    def test_init(self):
+        """ """
+
+        pass
+
+
 def test_init_dataClass():
     """ """
 

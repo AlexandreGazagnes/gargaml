@@ -22,6 +22,7 @@ from gargaml.data.load import (
 
 import pytest
 
+from ..conftest import fixt
 
 list_all = [
     _ames,
@@ -48,6 +49,8 @@ class TestBasics:
     @pytest.mark.parametrize("funct", list_all)
     def test_load(self, funct):
         """ """
+
+        fixt()
 
         _ = funct()
 
