@@ -1,4 +1,6 @@
 import os, sys, random, logging
+from typing import Callable
+
 import string, math
 from sklearn.datasets import *
 import pandas as pd
@@ -250,24 +252,29 @@ class Load:
     #     return None
 
     @classmethod
-    def dict_all(cls):
+    def dict_all(cls, key:str =None) -> Callable|None:
         """key, val for all avialables methods"""
 
-        return {
-            "ames": Load.ames,
-            "seattle": Load.seattle,
-            "hr": Load.hr,
-            "titanic": Load.titanic,
-            "house": Load.house,
-            # "mnist" :Load.,
-            "food": Load.food,
-            "wine": Load.wine,
-            "iris": Load.iris,
-            # "fashion" : _,
-        }
+        dd  = {
+                "ames": Load.ames,
+                "seattle": Load.seattle,
+                "hr": Load.hr,
+                "titanic": Load.titanic,
+                "house": Load.house,
+                # "mnist" :Load.,
+                "food": Load.food,
+                "wine": Load.wine,
+                "iris": Load.iris,
+                # "fashion" : _,
+                }
+
+        if not key : 
+            return dd
+
+        return dd.get(key, None)
 
     @classmethod
-    def list_all(cls):
+    def list_all(cls) -> list[str]:
         """List of avliabable dataset methods"""
 
         li = Load.dict_all().keys()
