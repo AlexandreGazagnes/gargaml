@@ -127,9 +127,9 @@ class Load:
         cls,
         sep_target: bool = False,
         nan_rate: float = 0.0,
-        precleaning=False,
-        version=None,
-    ):
+        precleaning: bool = False,
+        version: str = None,
+    ) -> pd.DataFrame | list[pd.DataFrame | pd.Series]:
         """ """
 
         url = "https://gist.githubusercontent.com/AlexandreGazagnes/9018022652ba0933dd39c9df8a600292/raw/0845ef4c2df4806bb05c8c7423dc75d93e37400f/titanic_train_raw_csv"
@@ -137,6 +137,21 @@ class Load:
         df = pd.read_csv(url)
 
         df.columns = map(_clean_columns, df.columns)
+
+        if precleaning:
+            # clean taregt
+            df = df.loc[df.survived.notna(), :]
+
+            # to many nan
+            tmp = df.isna().mean()
+            df = df.drop(columns=tmp[tmp > 0.75].index)
+
+            # to many nunique
+            cols = df.select_dtypes(exclude=np.number).columns
+            tmp = df.loc[:, cols].nunique()
+            cols = list(tmp[tmp < 20].index)
+            cols = cols + list(df.select_dtypes(include=np.number).columns)
+            df = df.loc[:, cols]
 
         return _do_sep_target(df, sep_target, "survived")
 
@@ -252,23 +267,23 @@ class Load:
     #     return None
 
     @classmethod
-    def dict_all(cls, key:str =None) -> Callable|None:
+    def dict_all(cls, key: str = None) -> Callable | None:
         """key, val for all avialables methods"""
 
-        dd  = {
-                "ames": Load.ames,
-                "seattle": Load.seattle,
-                "hr": Load.hr,
-                "titanic": Load.titanic,
-                "house": Load.house,
-                # "mnist" :Load.,
-                "food": Load.food,
-                "wine": Load.wine,
-                "iris": Load.iris,
-                # "fashion" : _,
-                }
+        dd = {
+            "ames": Load.ames,
+            "seattle": Load.seattle,
+            "hr": Load.hr,
+            "titanic": Load.titanic,
+            "house": Load.house,
+            # "mnist" :Load.,
+            "food": Load.food,
+            "wine": Load.wine,
+            "iris": Load.iris,
+            # "fashion" : _,
+        }
 
-        if not key : 
+        if not key:
             return dd
 
         return dd.get(key, None)
