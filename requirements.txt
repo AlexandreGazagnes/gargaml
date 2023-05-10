@@ -48,11 +48,12 @@ imbalanced-learn
 category_encoders
 lightgbm
 xgboost
-shap
+# shap
 sklearn-pandas
 # evidently
 # yellowbrick
 # optuna
+# pycarret
 
 
 # # Spark 
@@ -97,9 +98,9 @@ word2vec
 
 
 # # DL
-tensorflow
-tensorboard
-scikeras
+# tensorflow
+# tensorboard
+# scikeras
 # torch 
 # torchvision 
 # torchaudio 

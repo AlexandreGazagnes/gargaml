@@ -14,7 +14,8 @@ from IPython.display import display
 
 import pandas as pd
 import numpy as np
-from sklearn_pandas import DataFrameMapper
+
+# from sklearn_pandas import DataFrameMapper
 
 # import dataprep
 # from dataprep.datasets import load_dataset
@@ -59,7 +60,7 @@ from imblearn.pipeline import Pipeline
 from xgboost import XGBRegressor, XGBRFRegressor, XGBClassifier, XGBRFClassifier
 from lightgbm import LGBMClassifier, LGBMRegressor
 
-import shap
+# import shap
 
 # pandarallel.initialize(progress_bar=True, nb_workers=4)
 
