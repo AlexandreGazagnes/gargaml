@@ -113,3 +113,7 @@ opencv-python
 
 # aws
 # gcp
+
+# deepdiff
+# feature engine
+# fancy impute
