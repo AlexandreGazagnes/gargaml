@@ -36,21 +36,23 @@ setup(
     packages=find_packages(),  # gargaml
     # packages=["gargaml"],
     install_requires=[
-        #
+        # DATA
         "pandas",
         "numpy",
         # dataprep
         "lxml",
         "openpyxl",
-        # lxml
+        "lxml",
+        "sklearn-pandas",
+        # STATS
         "scipy",
         "statsmodels",
-        #
+        # viz
         "matplotlib",
         "seaborn",
         "plotly",
         "missingno",
-        #
+        # TOOLS
         "Ipython",
         "jupyter",
         "notebook",
@@ -59,20 +61,20 @@ setup(
         # "session-info",
         "pandarallel",
         "joblib",
-        #
+        # ML
         "scikit-learn",
         "imbalanced-learn",
         "category_encoders",
         "lightgbm",
         "xgboost",
-        # "shap",
+        "shap",
         # "evidently",
-        #
+        # web
         "requests",
         "flask",
         "bs4",
         "kaggle",
-        #
+        # TEST QUALITY
         "flake8",
         "pytest",
         "pylint",
@@ -80,6 +82,22 @@ setup(
         "mypy",
         "coverage",
         "pyflakes",
+        # NLP
+        "nltk",
+        "wordcloud",
+        "spacy",
+        "transformers",
+        "gensim",
+        # glove"
+        "word2vec"
+        # DL
+        "tensorflow",
+        "tensorboard",
+        "scikeras",
+        # torch
+        # IMAGE
+        "Pillow",
+        "opencv-python",
     ],
     keywords=["python", "machine", "learning", "data", "analysis", "EDA", "ML"],
     classifiers=[

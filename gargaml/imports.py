@@ -4,8 +4,9 @@ import os, sys, random, logging, warnings, time, datetime, secrets, math, pickle
 
 from dataclasses import dataclass
 
-# from itertools import product, permutations
-# from collections.abc import Iterable
+from itertools import product, permutations
+from collections.abc import Iterable
+
 # from typing import List, Dict, Union, Tuple, Iterator, Callable, Optional
 
 
@@ -13,6 +14,7 @@ from IPython.display import display
 
 import pandas as pd
 import numpy as np
+from sklearn_pandas import DataFrameMapper
 
 # import dataprep
 # from dataprep.datasets import load_dataset
@@ -57,6 +59,7 @@ from imblearn.pipeline import Pipeline
 from xgboost import XGBRegressor, XGBRFRegressor, XGBClassifier, XGBRFClassifier
 from lightgbm import LGBMClassifier, LGBMRegressor
 
+import shap
 
 # pandarallel.initialize(progress_bar=True, nb_workers=4)
 

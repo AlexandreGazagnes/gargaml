@@ -1,5 +1,6 @@
 import pytest
 from typing import Callable
+
 # from sklearn.datasets import load_boston, load_iris
 import pandas as pd
 import numpy as np
@@ -25,7 +26,6 @@ class TestBasics:
     @pytest.mark.parametrize("key", list_all)
     def test_load(self, key):
         """ """
-
 
         funct = Load.dict_all(key=key)
         _ = funct()

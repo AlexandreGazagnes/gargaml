@@ -5,10 +5,10 @@ target-version = ['py36', 'py37', 'py38', 'py39', "py310", "py311" ]
 [tool.pytest.ini_options]
 python_files = [
     'dependencies/*',
-    'data/*',
-    'loads/*',
-    'data/*', 
-    'eda/*'
+    #        'data/*',
+    # 'loads/*',
+    # 'data/*', 
+    # 'eda/*'
     #     'build/*.py'
 
 ]

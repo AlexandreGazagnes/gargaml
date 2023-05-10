@@ -48,8 +48,8 @@ imbalanced-learn
 category_encoders
 lightgbm
 xgboost
-# shap
-# sklearn-pandas
+shap
+sklearn-pandas
 # evidently
 # yellowbrick
 # optuna
@@ -87,19 +87,19 @@ kaggle
 
 
 # # Nlp
-# nltk
-# wordcloud
-# spacy
-# transformers
-# gensim
+nltk
+wordcloud
+spacy
+transformers
+gensim
 # glove
-# word2vec
+word2vec
 
 
 # # DL
-# tensorflow
-# tensorboard
-# scikeras
+tensorflow
+tensorboard
+scikeras
 # torch 
 # torchvision 
 # torchaudio 
@@ -107,8 +107,8 @@ kaggle
 
 
 # # Image
-# Pillow
-# opencv-python
+Pillow
+opencv-python
 
 
 # aws
