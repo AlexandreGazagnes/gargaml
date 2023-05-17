@@ -44,14 +44,17 @@ setup(
         "openpyxl",
         "lxml",
         "sklearn-pandas",
+        
         # STATS
         "scipy",
         "statsmodels",
-        # viz
+
+        # VIZ
         "matplotlib",
         "seaborn",
         "plotly",
         "missingno",
+
         # TOOLS
         "Ipython",
         "jupyter",
@@ -67,13 +70,15 @@ setup(
         "category_encoders",
         "lightgbm",
         "xgboost",
-        "shap",
+        # "shap",
         # "evidently",
-        # web
+
+        # WEB
         "requests",
         "flask",
         "bs4",
         "kaggle",
+
         # TEST QUALITY
         "flake8",
         "pytest",
@@ -82,22 +87,25 @@ setup(
         "mypy",
         "coverage",
         "pyflakes",
+
         # NLP
-        "nltk",
-        "wordcloud",
-        "spacy",
-        "transformers",
-        "gensim",
+        # "nltk",
+        # "wordcloud",
+        # "spacy",
+        # "transformers",
+        # "gensim",
         # glove"
-        "word2vec"
+        # "word2vec"
+
         # DL
-        "tensorflow",
-        "tensorboard",
-        "scikeras",
+        # "tensorflow",
+        # "tensorboard",
+        # "scikeras",
         # torch
+
         # IMAGE
-        "Pillow",
-        "opencv-python",
+        # "Pillow",
+        # "opencv-python",
     ],
     keywords=["python", "machine", "learning", "data", "analysis", "EDA", "ML"],
     classifiers=[
