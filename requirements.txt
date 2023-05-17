@@ -37,6 +37,8 @@ pandarallel
 joblib
 
 
+# hello
+
 # Build
 wheel
 setuptools
@@ -88,13 +90,13 @@ kaggle
 
 
 # # Nlp
-nltk
-wordcloud
-spacy
-transformers
-gensim
-# glove
-word2vec
+# nltk
+# wordcloud
+# spacy
+# transformers
+# gensim
+# # glove
+# word2vec
 
 
 # # DL
@@ -108,8 +110,8 @@ word2vec
 
 
 # # Image
-Pillow
-opencv-python
+# Pillow
+# opencv-python
 
 
 # aws
