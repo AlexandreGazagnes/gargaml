@@ -1,16 +1,26 @@
-import os, sys, random, logging, warnings, time, datetime, secrets, math
+import os, sys, random, logging, warnings, time, datetime, secrets, math, pickle
+
+# from math import ceil
+
 from dataclasses import dataclass
-from math import ceil
+
+from itertools import product, permutations
+from collections.abc import Iterable
+
+# from typing import List, Dict, Union, Tuple, Iterator, Callable, Optional
+
+
 from IPython.display import display
 
 import pandas as pd
 import numpy as np
 
+# from sklearn_pandas import DataFrameMapper
+
 # import dataprep
 # from dataprep.datasets import load_dataset
-# from pandarallel import pandarallel
+from pandarallel import pandarallel
 
-# pandarallel.initialize(progress_bar=True, nb_workers=4)
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -20,7 +30,6 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import missingno as msno
 
-sns.set()
 
 import scipy.stats as st
 import statsmodels.api as sm
@@ -49,3 +58,10 @@ from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
 
 from xgboost import XGBRegressor, XGBRFRegressor, XGBClassifier, XGBRFClassifier
+from lightgbm import LGBMClassifier, LGBMRegressor
+
+# import shap
+
+# pandarallel.initialize(progress_bar=True, nb_workers=4)
+
+sns.set()

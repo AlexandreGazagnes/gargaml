@@ -101,13 +101,17 @@ class Pca:
 
         return X_proj
 
-    @property
     def variance(self, display_=True):
         """ """
+
+        # TODO USE PLOTLY
+
+        # compute
         scree = (self.pca.explained_variance_ratio_ * 100).round(2)
         scree_cum = scree.cumsum().round()
         x_list = range(1, self.n_components + 1)
 
+        # display
         if display_:
             plt.bar(x_list, scree)
             plt.plot(x_list, scree_cum, c="red", marker="o")
@@ -118,19 +122,27 @@ class Pca:
 
         return self._variance
 
-    @property
-    def pcs(self):
+    def pcs(self, fmt: int = 2, size=8, display_: bool = True):
         """ """
-        fig = sns.heatmap(
-            self._pcs.T, vmin=-1, vmax=1, cmap="coolwarm", fmt=".2f", annot=True
-        )
-        # fig.show()
+
+        # TODO update with plotly
+        # no attribute => Function
+        # args,
+
+        if display_:
+            figsize = [int(1.5 * size), size]
+            fmt = f".{fmt}f"
+            fig, ax = plt.subplots(1, 1, figsize=figsize)
+            ax = sns.heatmap(
+                self._pcs.T, vmin=-1, vmax=1, cmap="coolwarm", fmt=fmt, annot=True
+            )
+            # fig.show()
 
         return self._pcs.T
 
     def correlation_graph(
         self,
-        dim,
+        dim: list = [0, 1],
     ):
         """Affiche le graphe des correlations
 
@@ -214,7 +226,6 @@ class Pca:
         # Initialisation de la figure
         fig, ax = plt.subplots(1, 1, figsize=figsize)
 
-
         if len(clusters):
             sns.scatterplot(data=None, x=X_[:, x], y=X_[:, y], hue=clusters)
         else:
@@ -252,7 +263,6 @@ class Pca:
         plt.title(f"Projection des individus (sur F{x+1} et F{y+1})")
         plt.show()
 
-
     def _3d_factorial_planes(
         self,
         X_,
@@ -269,41 +279,39 @@ class Pca:
 
         # TOD ADD LABELS AS TEXT
 
-        # axis name 
+        # axis name
 
         v1 = str(round(100 * self.pca.explained_variance_ratio_[x])) + " %"
         v2 = str(round(100 * self.pca.explained_variance_ratio_[y])) + " %"
-        v3= str(round(100 * self.pca.explained_variance_ratio_[z])) + " %"
+        v3 = str(round(100 * self.pca.explained_variance_ratio_[z])) + " %"
         vs = [v1, v2, v3]
         axis = [f"PC_{i+1}" for i in dim]
-        axis = {k:v1+"_"+v2 for k, v1, v2 in zip(["x", "y", "z"], axis, vs)}
-
-
+        axis = {k: v1 + "_" + v2 for k, v1, v2 in zip(["x", "y", "z"], axis, vs)}
 
         if len(clusters):
             # str for better viz
-            if isinstance(clusters, pd.Series) : 
-                clusters= clusters.values
+            if isinstance(clusters, pd.Series):
+                clusters = clusters.values
             clusters = [str(i) for i in clusters]
-            fig = px.scatter_3d( x=X_[:, x], y=X_[:, y], z=X_[:, z], color=clusters, labels=axis)
+            fig = px.scatter_3d(
+                x=X_[:, x], y=X_[:, y], z=X_[:, z], color=clusters, labels=axis
+            )
         else:
-            fig = px.scatter_3d( x=X_[:, x], y=X_[:, y], z=X_[:, z], labels=axis)
-
-
+            fig = px.scatter_3d(x=X_[:, x], y=X_[:, y], z=X_[:, z], labels=axis)
 
         # marker size
-        fig.update_traces(marker=dict(size=3),           selector=dict(mode='markers'))
+        fig.update_traces(marker=dict(size=3), selector=dict(mode="markers"))
 
         fig.show()
 
-
-
     def factorial_planes(
         self,
-        dim,
+        dim: list = [0, 1],
         labels: str = None,
         clusters: str = None,
         alpha: float = 1,
+        scale: bool = False,
+        scaler: str = "min",
         figsize: list = [10, 8],
         marker: str = ".",
     ):
@@ -326,6 +334,8 @@ class Pca:
         """
 
         # TODO USE PX
+
+        # TO DO IMPLEMENT over scaling for better vise
 
         # Transforme self.X_proj en np.array
         X_ = np.array(self.X_proj)
@@ -366,7 +376,7 @@ class Pca:
         elif clusters in [None, "", 0, False, []]:
             clusters = []
         elif isinstance(clusters, str):
-            if str not in self.X.columns:
+            if clusters not in self.X.columns:
                 raise AttributeError(f"label {clusters} not in X => {self.X.columns}")
             clusters = self.X.loc[:, clusters].values
 
@@ -402,4 +412,3 @@ class Pca:
                 figsize,
                 marker,
             )
-
