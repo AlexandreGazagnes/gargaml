@@ -1,1 +1,11 @@
-from gargaml.loads.loads import Loads
+############
+############
+
+# DEPRECATED => plz watch out gargaml.data module
+
+############
+############
+
+
+class Loads:
+    pass
