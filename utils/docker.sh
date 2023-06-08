@@ -4,7 +4,7 @@
 docker build -f ./utils/Dockerfile.base -t gargaml:base .
 
 # docker build
-docker build --no-cache -f ./utils/Dockerfile -t gargaml:latest .
+docker build --no-cache -f ./utils/Dockerfile.test -t gargaml:latest .
 
 # docker run
 docker run -ti gargaml:latest /bin/bash

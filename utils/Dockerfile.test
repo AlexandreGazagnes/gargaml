@@ -1,0 +1,12 @@
+FROM gargaml:base
+
+WORKDIR /root
+
+# COPY ./utils/bashrc.sh ./
+# RUN cat bashrc.sh >> .bashrc
+# RUN rm bashrc.sh
+
+RUN echo "git+https://github.com/AlexandreGazagnes/gargaml/tree/update-ml-module" >> requirements.txt
+RUN pip install -r requirements.txt
+
+

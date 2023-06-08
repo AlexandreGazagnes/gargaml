@@ -20,9 +20,11 @@ data_list = [
     "final",
 ]
 assets_list = ["img", "prez"]
+
 notebooks_list = [
     "00-data-management",
     "01-data-build",
     "02-data-explo-pre-cleaning",
     "03-modelisation",
+    "04-explaination"
 ]
