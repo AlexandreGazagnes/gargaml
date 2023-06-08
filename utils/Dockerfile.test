@@ -6,7 +6,8 @@ WORKDIR /root
 # RUN cat bashrc.sh >> .bashrc
 # RUN rm bashrc.sh
 
-RUN echo "git+https://github.com/AlexandreGazagnes/gargaml/tree/update-ml-module" >> requirements.txt
+RUN echo "git+https://github.com/AlexandreGazagnes/gargaml.git@update-ml-module" >> requirements.txt
+RUN cat requirements.txt
 RUN pip install -r requirements.txt
 
 

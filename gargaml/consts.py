@@ -1,2 +1,2 @@
-CV = 10
-N_JOBS = 6
+# CV = 10
+# N_JOBS = 6

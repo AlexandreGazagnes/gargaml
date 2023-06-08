@@ -25,7 +25,7 @@ def create_files():
 
     # assets/
     for dir in assets_list:
-        fn_list.append(f"{path}/assets/{dir}README.md")
+        fn_list.append(f"{path}/assets/{dir}/README.md")
 
     # notebooks
     for f in notebooks_list:
