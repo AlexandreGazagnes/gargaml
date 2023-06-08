@@ -65,3 +65,12 @@ from lightgbm import LGBMClassifier, LGBMRegressor
 # pandarallel.initialize(progress_bar=True, nb_workers=4)
 
 sns.set()
+
+
+passthrough = "passthrough"
+LAZY = True
+DISPLAY = False
+FRAC = 0.25
+CV = 10
+N_JOBS = -1
+RETURN_TRAIN_SCORE = True
