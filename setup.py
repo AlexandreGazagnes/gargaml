@@ -107,6 +107,16 @@ setup(
         # IMAGE
         # "Pillow",
         # "opencv-python",
+
+	#import mlflow
+	# dagshub
+	#verstack
+
+	#evidently
+
+	#pycaret
+
+	#optuna
     ],
     keywords=["python", "machine", "learning", "data", "analysis", "EDA", "ML"],
     classifiers=[

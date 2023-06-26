@@ -36,6 +36,8 @@ import statsmodels.api as sm
 
 from sklearn.base import *
 
+
+from sklearn.experimental import enable_halving_search_cv  # noqa
 from sklearn.feature_selection import *
 from sklearn.feature_extraction import *
 from sklearn.decomposition import *

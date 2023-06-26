@@ -56,6 +56,7 @@ sklearn-pandas
 # yellowbrick
 # optuna
 # pycarret
+# scikit-lego
 
 
 # # Spark 
@@ -120,3 +121,14 @@ kaggle
 # deepdiff
 # feature engine
 # fancy impute
+
+
+
+##
+
+# mlflow
+#import dagshub
+#import verstack
+#evidently
+#pycaret
+#optuna
