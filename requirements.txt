@@ -1,12 +1,12 @@
 # basics
 pandas 
 numpy 
-# openpyxl
-# lxml
+openpyxl
+lxml
 # mlflow
 # mlfow[extras]
 # dataprep
-# haversine
+haversine
 
 
 # Stats 
@@ -32,9 +32,12 @@ jupytext
 ipykernel
 ipywidgets
 # session-info
-# pandarallel
+pandarallel
 # rich
+joblib
 
+
+# hello
 
 # Build
 wheel
@@ -48,10 +51,11 @@ category_encoders
 lightgbm
 xgboost
 # shap
-# sklearn-pandas
+sklearn-pandas
 # evidently
 # yellowbrick
 # optuna
+# pycarret
 
 
 # # Spark 
@@ -73,6 +77,8 @@ pylint
 black
 black[jupyter]
 mypy
+coverage
+pyflakes
 
 
 # Web
@@ -89,7 +95,7 @@ kaggle
 # spacy
 # transformers
 # gensim
-# glove
+# # glove
 # word2vec
 
 
@@ -106,3 +112,11 @@ kaggle
 # # Image
 # Pillow
 # opencv-python
+
+
+# aws
+# gcp
+
+# deepdiff
+# feature engine
+# fancy impute
